@@ -1,8 +1,8 @@
-package com.fun4.services.controllers;
+package com.example.userservice.controller;
 
-import com.fun4.services.exception.ResourceNotFoundException;
-import com.fun4.services.model.User;
-import com.fun4.services.repositories.UserRepositoy;
+import com.example.userservice.exception.ResourceNotFoundException;
+import com.example.userservice.model.User;
+import com.example.userservice.repository.UserRepositoy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
