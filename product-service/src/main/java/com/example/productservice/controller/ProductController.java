@@ -3,6 +3,7 @@ package com.example.productservice.controller;
 import com.example.productservice.exception.ResourceNotFoundException;
 import com.example.productservice.model.Product;
 import com.example.productservice.repository.ProductRepository;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +12,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
+@Api(value="/products",description="Product Service",produces ="application/json")
 @RequestMapping("/products")
 public class ProductController {
     @Autowired
