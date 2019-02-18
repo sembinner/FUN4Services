@@ -18,8 +18,7 @@ import java.util.Date;
         allowGetters = true)
 public class Product implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @NotBlank
     private String name;
@@ -41,11 +40,11 @@ public class Product implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
