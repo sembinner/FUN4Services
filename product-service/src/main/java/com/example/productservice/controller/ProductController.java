@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @Api(value="/products",description="Product Service",produces ="application/json")
@@ -27,19 +28,20 @@ public class ProductController {
     // Create new Product
     @PostMapping()
     public Product createProduct(@Valid @RequestBody Product product) {
+        product.setId(UUID.randomUUID().toString());
         return productRepository.save(product);
     }
 
     // Get a single Product - By Id
     @GetMapping("/{id}")
-    public Product getProductById(@PathVariable(value = "id") Long productId) {
+    public Product getProductById(@PathVariable(value = "id") String productId) {
         return productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
     }
 
     // Update a Product
     @PutMapping("/{id}")
-    public Product updateProduct(@PathVariable(value = "id") Long productId,
+    public Product updateProduct(@PathVariable(value = "id") String productId,
                                  @Valid @RequestBody Product productDetails) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
@@ -54,7 +56,7 @@ public class ProductController {
 
     // Delete a Product
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable(value = "id") Long productId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable(value = "id") String productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product", "id", productId));
 
