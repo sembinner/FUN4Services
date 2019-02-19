@@ -32,7 +32,7 @@ public class User implements Serializable {
 
     @NotBlank
     private String password;
-    
+
 
     public String getId() {
         return id;
