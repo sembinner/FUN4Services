@@ -1,4 +1,4 @@
-package com.fun4.authservice.model;
+package com.fun4.authservice.pojo;
 
 public class UserCredentials {
     private String username;

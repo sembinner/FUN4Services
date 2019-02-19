@@ -33,6 +33,17 @@ public class User implements Serializable {
     @NotBlank
     private String password;
 
+    public User() {
+    }
+
+    public User(String id, @NotBlank String email, @NotBlank String username, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String password) {
+        this.id = id;
+        this.email = email;
+        this.username = username;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+    }
 
     public String getId() {
         return id;
