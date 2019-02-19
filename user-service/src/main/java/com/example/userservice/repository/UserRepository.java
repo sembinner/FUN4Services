@@ -13,10 +13,17 @@ public class UserRepository {
     }
 
     public User getUserByUsername(String username) {
-        try(Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
-            Query<User> query = session.createQuery("from User where username = :username", User.class);
-            query.setParameter("username", username);
+        Session session = HibernateManager.getInstance().getSessionFactory().openSession();
+
+        Query<User> query = session.createQuery("from User where username = :username", User.class);
+        query.setParameter("username", username);
+
+        try {
             return query.uniqueResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            session.close();
         }
     }
 }

@@ -1,21 +1,14 @@
 package com.example.userservice.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table
-        ;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "user")
-@JsonIgnoreProperties(value = {"createdAt", "updatedAt"},
-        allowGetters = true)
-public class User implements Serializable {
+public class User {
     @Id
-    private String id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
     @NotBlank
     private String email;
@@ -35,7 +28,7 @@ public class User implements Serializable {
     public User() {
     }
 
-    public User(String id, @NotBlank String email, @NotBlank String username, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String password) {
+    public User(int id, @NotBlank String email, @NotBlank String username, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String password) {
         this.id = id;
         this.email = email;
         this.username = username;
@@ -44,11 +37,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
