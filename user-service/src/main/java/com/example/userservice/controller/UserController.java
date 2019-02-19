@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @Api(value="/users",description="User Service",produces ="application/json")
 @RequestMapping("/users")
 public class UserController {
@@ -27,22 +29,23 @@ public class UserController {
     // Create new User
     @PostMapping()
     public User createUser(@Valid @RequestBody User user) {
+        user.setId(UUID.randomUUID().toString());
         return userRepositoy.save(user);
     }
 
     // Get a single User - By Id
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable(value = "id") Long userId){
+    public User getUserById(@PathVariable(value = "id") String userId){
         return userRepositoy.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
     }
 
     // Update User
     @PutMapping("/{id}")
-    public User updateUser(@PathVariable(value = "id") Long userId,
+    public User updateUser(@PathVariable(value = "id") String userId,
                            @Valid @RequestBody User userDetails) {
         User user = userRepositoy.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Product", "id", userId));
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
         user.setUsername(userDetails.getUsername());
         user.setEmail(userDetails.getEmail());
@@ -56,7 +59,7 @@ public class UserController {
 
     // Delete User
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteProduct(@PathVariable(value = "id") Long userId) {
+    public ResponseEntity<?> deleteProduct(@PathVariable(value = "id") String userId) {
         User user = userRepositoy.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
 
