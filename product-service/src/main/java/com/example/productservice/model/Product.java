@@ -40,6 +40,9 @@ public class Product implements Serializable {
     @LastModifiedDate
     private Date updatedAt;
 
+    @Column(nullable = false, updatable = false)
+    private String userId;
+
     public String getId() {
         return id;
     }
