@@ -7,12 +7,14 @@ import javax.validation.constraints.NotBlank;
     public class User {
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column()
         private int id;
 
         @NotBlank
         private String email;
 
         @NotBlank
+        @Column(unique = true)
         private String username;
 
         @NotBlank
@@ -29,6 +31,14 @@ import javax.validation.constraints.NotBlank;
 
         public User(int id, @NotBlank String email, @NotBlank String username, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String password) {
             this.id = id;
+            this.email = email;
+            this.username = username;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.password = password;
+        }
+
+        public User(@NotBlank String email, @NotBlank String username, @NotBlank String firstName, @NotBlank String lastName, @NotBlank String password) {
             this.email = email;
             this.username = username;
             this.firstName = firstName;

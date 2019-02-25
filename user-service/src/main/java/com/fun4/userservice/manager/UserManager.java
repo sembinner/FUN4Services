@@ -13,4 +13,6 @@ public class UserManager {
     public User getUserByUsername(String username){
         return this.userRepository.getUserByUsername(username);
     }
+
+    public User addUser(User user){return this.userRepository.addUser(user);}
 }

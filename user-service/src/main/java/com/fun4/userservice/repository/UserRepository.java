@@ -23,4 +23,36 @@ public class UserRepository {
             session.close();
         }
     }
+
+    public User addUser(User user){
+        this.storeData(user);
+        return this.getUserByUsername(user.getUsername());
+    }
+
+    private void storeData(Object objectToSave) {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            session.save(objectToSave);
+            session.getTransaction().commit();
+        }
+    }
+
+    private void updateData(Object objectToUpdate) {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            session.update(objectToUpdate);
+            session.getTransaction().commit();
+        }
+    }
+
+    private void deleteData(Object objectToDelete) {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            session.beginTransaction();
+
+            session.delete(objectToDelete);
+            session.getTransaction().commit();
+        }
+    }
 }
