@@ -1,4 +1,4 @@
-package com.example.productservice;
+package com.fun4.productservice;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
