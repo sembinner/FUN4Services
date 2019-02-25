@@ -11,6 +11,14 @@ import java.util.Date;
 
 @Component
 public class JwtTokenProvider {
+    private static JwtTokenProvider instance;
+
+    public static JwtTokenProvider getInstance(){
+        if(instance == null){
+            instance = new JwtTokenProvider();
+        }
+        return instance;
+    }
     private String secretKey = "secret";
 
     private long validityInMilliseconds = 86400000;
