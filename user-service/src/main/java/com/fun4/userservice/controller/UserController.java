@@ -39,6 +39,7 @@ public class UserController {
 
     @GetMapping("/validateToken/{token}")
     public ResponseEntity validateToken(@PathVariable(value = "token") String token){
+        //This is just to test if JWT is working!
         try {
             if(!jwtTokenProvider.validateToken(token)){
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token not valid!");
