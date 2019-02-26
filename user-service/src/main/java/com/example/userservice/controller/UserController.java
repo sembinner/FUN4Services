@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.UUID;
 
 @RestController
+@CrossOrigin
 @Api(value="/users",description="User Service",produces ="application/json")
 @RequestMapping("/users")
 public class UserController {
