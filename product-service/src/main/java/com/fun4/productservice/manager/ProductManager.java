@@ -1,6 +1,8 @@
 package com.fun4.productservice.manager;
 
 import com.fun4.productservice.model.Product;
+import com.fun4.productservice.model.SortingOrder;
+import com.fun4.productservice.model.SortingType;
 import com.fun4.productservice.repository.ProductRepository;
 
 import java.util.List;
@@ -26,8 +28,8 @@ public class ProductManager {
 
     public void deleteProduct(int productId) { this.productRepository.deleteProduct(productId); }
 
-    public List<Product> getProducts(Integer startIndex, Integer pageSize) {
-        return this.productRepository.getAllProducts(startIndex, pageSize);
+    public List<Product> getProducts(Integer startIndex, Integer pageSize, SortingType type, SortingOrder order) {
+        return this.productRepository.getAllProducts(startIndex, pageSize, type, order);
     }
 
     public List<Product> getProductsForUser(int userId, Integer startIndex, Integer pageSize){

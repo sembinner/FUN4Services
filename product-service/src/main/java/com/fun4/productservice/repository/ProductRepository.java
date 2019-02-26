@@ -2,6 +2,8 @@ package com.fun4.productservice.repository;
 
 import com.fun4.productservice.manager.HibernateManager;
 import com.fun4.productservice.model.Product;
+import com.fun4.productservice.model.SortingOrder;
+import com.fun4.productservice.model.SortingType;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 
@@ -31,12 +33,32 @@ public class ProductRepository {
         return this.getProductById(product.getId());
     }
 
-    public List<Product> getAllProducts(Integer startIndex, Integer pageSize) {
+    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, SortingType type, SortingOrder order) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
-            Query<Product> query = session.createQuery("from Product");
+            String queryString = "from Product p";
+
+            if (type != null & order != null){
+                if (type == SortingType.PRICE){
+                    queryString += " ORDER BY p.price";
+                } else {
+                    queryString += " ORDER BY p.name";
+                }
+
+                if (order == SortingOrder.ASCENDING){
+                    queryString += " ASC";
+                } else {
+                    queryString += " DESC";
+                }
+
+            }
+            System.out.println("This is the query :" + queryString);
+
+            Query<Product> query = session.createQuery(queryString);
 
             // Pagination
             if (startIndex != null && pageSize != null) {
+                System.out.println(startIndex);
+                System.out.println(pageSize);
                 query.setFirstResult(startIndex * pageSize);
                 query.setMaxResults(pageSize);
             }

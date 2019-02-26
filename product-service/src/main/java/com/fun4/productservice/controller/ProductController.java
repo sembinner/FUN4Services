@@ -2,9 +2,12 @@ package com.fun4.productservice.controller;
 
 import com.fun4.productservice.manager.ProductManager;
 import com.fun4.productservice.model.Product;
+import com.fun4.productservice.model.SortingOrder;
+import com.fun4.productservice.model.SortingType;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
 import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
 import io.swagger.annotations.Api;
+import io.swagger.models.auth.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,11 +27,19 @@ public class ProductController {
     @GetMapping()
     public ResponseEntity getAllProducts(
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize
+            @RequestParam(value = "pageSize", required = false) Integer pageSize,
+            @RequestParam(value = "type", required = false) String type,
+            @RequestParam(value = "order", required = false) String order
     ) {
-        System.out.println(" startIndex: " + startIndex);
-        System.out.println(" pageSize: " + pageSize);
-        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize));
+        SortingType sortingType = null;
+        SortingOrder sortingOrder = null;
+
+        if (type != null && order != null){
+            sortingType = SortingType.values()[Integer.parseInt(type)];
+            sortingOrder = SortingOrder.values()[Integer.parseInt(order)];
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, sortingType, sortingOrder));
     }
 
     // Get single product - by id
