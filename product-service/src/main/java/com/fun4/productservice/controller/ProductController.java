@@ -39,8 +39,12 @@ public class ProductController {
 
     // Get product per user
     @GetMapping("/users/{userId}")
-    public ResponseEntity getProductForUser(@PathVariable(value = "userId") int userId){
-        return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductsForUser(userId));
+    public ResponseEntity getProductForUser(
+            @PathVariable(value = "userId") int userId,
+            @RequestParam(value = "startIndex", required = false) Integer startIndex,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize
+            ){
+        return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductsForUser(userId, startIndex, pageSize));
     }
 
     // Create new product

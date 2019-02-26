@@ -31,38 +31,32 @@ public class ProductRepository {
         return this.getProductById(product.getId());
     }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getAllProducts(Integer startIndex, Integer pageSize) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             Query<Product> query = session.createQuery("from Product");
 
-            return query.getResultList();
-        }
-    }
-
-    public List<Product> getProducts(int startIndex, int pageSize){
-        System.out.println(startIndex);
-        System.out.println(pageSize);
-        try(Session session = HibernateManager.getInstance().getSessionFactory().openSession()){
-            Query<Product> query = session.createQuery("from Product");
-            query.setFirstResult(startIndex*pageSize);
-            query.setMaxResults(pageSize);
+            // Pagination
+            if (startIndex != null && pageSize != null) {
+                query.setFirstResult(startIndex * pageSize);
+                query.setMaxResults(pageSize);
+            }
 
             return query.getResultList();
         }
     }
 
-    public List<Product> getProductsForUser(int userId){
+    public List<Product> getProductsForUser(int userId, Integer startIndex, Integer pageSize) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             Query<Product> query = session.createQuery(" from Product where userId = :userId", Product.class);
             query.setParameter("userId", userId);
 
-            try {
-                return query.getResultList();
-            } catch (NoResultException e){
-                return null;
-            } finally {
-                session.close();
+            // Pagination
+            if (startIndex != null && pageSize != null) {
+                query.setFirstResult(startIndex * pageSize);
+                query.setMaxResults(pageSize);
             }
+
+            return query.getResultList();
         }
     }
 

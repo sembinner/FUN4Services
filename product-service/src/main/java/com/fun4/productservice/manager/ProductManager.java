@@ -27,15 +27,10 @@ public class ProductManager {
     public void deleteProduct(int productId) { this.productRepository.deleteProduct(productId); }
 
     public List<Product> getProducts(Integer startIndex, Integer pageSize) {
-        if (startIndex != null && pageSize != null){
-            return this.productRepository.getProducts(startIndex, pageSize);
-        }
-        System.out.println(startIndex);
-        System.out.println(pageSize);
-        return this.productRepository.getAllProducts();
+        return this.productRepository.getAllProducts(startIndex, pageSize);
     }
 
-    public List<Product> getProductsForUser(int userId){
-        return this.productRepository.getProductsForUser(userId);
+    public List<Product> getProductsForUser(int userId, Integer startIndex, Integer pageSize){
+        return this.productRepository.getProductsForUser(userId, startIndex, pageSize);
     }
 }
