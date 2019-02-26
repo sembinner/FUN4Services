@@ -25,22 +25,26 @@ public class ProductRepository {
         }
     }
 
-    public Product addProduct(Product product){
+    public Product addProduct(Product product) {
         this.storeData(product);
         return this.getProductById(product.getId());
     }
 
-    public List<Product> getAllProducts(){
-        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()){
+    public List<Product> getAllProducts() {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             Query<Product> query = session.createQuery("from Product");
 
             return query.getResultList();
         }
     }
 
-    public Product updateProduct(Product product){
+    public Product updateProduct(Product product) {
         this.updateData(product);
         return this.getProductById(product.getId());
+    }
+
+    public void deleteProduct(int productId) {
+        this.deleteData(this.getProductById(productId));
     }
 
     private void storeData(Object objectToSave) {

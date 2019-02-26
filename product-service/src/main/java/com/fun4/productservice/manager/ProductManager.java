@@ -24,6 +24,8 @@ public class ProductManager {
         return this.productRepository.updateProduct(product);
     }
 
+    public void deleteProduct(int productId) { this.productRepository.deleteProduct(productId); }
+
     public List<Product> getAllProducts() {
         return this.productRepository.getAllProducts();
     }

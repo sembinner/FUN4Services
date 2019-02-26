@@ -57,4 +57,14 @@ public class ProductController {
         }
     }
 
+    // Delete a product - by id
+    @DeleteMapping("/{productId}")
+    public ResponseEntity deleteProduct(@PathVariable(value = "productId") int productId){
+        try {
+            this.productManager.deleteProduct(productId);
+            return ResponseEntity.status(HttpStatus.OK).body("Product has been deleted");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 }
