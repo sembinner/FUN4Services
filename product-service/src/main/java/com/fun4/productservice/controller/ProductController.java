@@ -3,6 +3,7 @@ package com.fun4.productservice.controller;
 import com.fun4.productservice.manager.ProductManager;
 import com.fun4.productservice.model.Product;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
+import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +26,13 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getAllProducts());
     }
 
+    // Get single product - by id
     @GetMapping("/{productId}")
     public ResponseEntity getProductById(@PathVariable(value = "productId") int productId){
         return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductById(productId));
     }
 
+    // Create new product
     @PostMapping("/add")
     public ResponseEntity addProduct(CreateProductViewmodel viewmodel){
         Product product  = new Product(viewmodel.getName(), viewmodel.getDescription(), viewmodel.getPrice(), viewmodel.getUserId());
@@ -40,6 +43,18 @@ public class ProductController {
         }
     }
 
+    // Update product
+    @PutMapping("/{id}")
+    public ResponseEntity updateProduct(UpdateProductViewmodel viewmodel){
+        Product product = this.productManager.getProductById(viewmodel.getId());
 
+        product.updateProduct(viewmodel.getName(), viewmodel.getDescription(), viewmodel.getPrice());
+
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(this.productManager.updateProduct(product));
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
 
 }

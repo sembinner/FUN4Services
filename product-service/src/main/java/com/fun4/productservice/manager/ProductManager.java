@@ -20,6 +20,10 @@ public class ProductManager {
         return this.productRepository.addProduct(product);
     }
 
+    public Product updateProduct(Product product){
+        return this.productRepository.updateProduct(product);
+    }
+
     public List<Product> getAllProducts() {
         return this.productRepository.getAllProducts();
     }
