@@ -6,6 +6,7 @@ import org.hibernate.Session;
 import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProductRepository {
@@ -35,6 +36,33 @@ public class ProductRepository {
             Query<Product> query = session.createQuery("from Product");
 
             return query.getResultList();
+        }
+    }
+
+    public List<Product> getProducts(int startIndex, int pageSize){
+        System.out.println(startIndex);
+        System.out.println(pageSize);
+        try(Session session = HibernateManager.getInstance().getSessionFactory().openSession()){
+            Query<Product> query = session.createQuery("from Product");
+            query.setFirstResult(startIndex*pageSize);
+            query.setMaxResults(pageSize);
+
+            return query.getResultList();
+        }
+    }
+
+    public List<Product> getProductsForUser(int userId){
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            Query<Product> query = session.createQuery(" from Product where userId = :userId", Product.class);
+            query.setParameter("userId", userId);
+
+            try {
+                return query.getResultList();
+            } catch (NoResultException e){
+                return null;
+            } finally {
+                session.close();
+            }
         }
     }
 

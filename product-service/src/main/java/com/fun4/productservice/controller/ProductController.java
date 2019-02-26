@@ -22,14 +22,25 @@ public class ProductController {
 
     // Get all Products
     @GetMapping()
-    public ResponseEntity getAllProducts() {
-        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getAllProducts());
+    public ResponseEntity getAllProducts(
+            @RequestParam(value = "startIndex", required = false) Integer startIndex,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize
+    ) {
+        System.out.println(" startIndex: " + startIndex);
+        System.out.println(" pageSize: " + pageSize);
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize));
     }
 
     // Get single product - by id
     @GetMapping("/{productId}")
     public ResponseEntity getProductById(@PathVariable(value = "productId") int productId){
         return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductById(productId));
+    }
+
+    // Get product per user
+    @GetMapping("/users/{userId}")
+    public ResponseEntity getProductForUser(@PathVariable(value = "userId") int userId){
+        return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductsForUser(userId));
     }
 
     // Create new product

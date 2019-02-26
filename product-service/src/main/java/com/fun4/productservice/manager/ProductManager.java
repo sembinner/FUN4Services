@@ -26,7 +26,16 @@ public class ProductManager {
 
     public void deleteProduct(int productId) { this.productRepository.deleteProduct(productId); }
 
-    public List<Product> getAllProducts() {
+    public List<Product> getProducts(Integer startIndex, Integer pageSize) {
+        if (startIndex != null && pageSize != null){
+            return this.productRepository.getProducts(startIndex, pageSize);
+        }
+        System.out.println(startIndex);
+        System.out.println(pageSize);
         return this.productRepository.getAllProducts();
+    }
+
+    public List<Product> getProductsForUser(int userId){
+        return this.productRepository.getProductsForUser(userId);
     }
 }
