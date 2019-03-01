@@ -23,23 +23,15 @@ public class ProductController {
         this.productManager = new ProductManager();
     }
 
-    // Get all Products
+    // Get Products
     @GetMapping()
-    public ResponseEntity getAllProducts(
+    public ResponseEntity getProducts(
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "order", required = false) String order
     ) {
-        SortingType sortingType = null;
-        SortingOrder sortingOrder = null;
-
-        if (type != null && order != null){
-            sortingType = SortingType.values()[Integer.parseInt(type)];
-            sortingOrder = SortingOrder.values()[Integer.parseInt(order)];
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, sortingType, sortingOrder));
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order));
     }
 
     // Get single product - by id

@@ -28,7 +28,7 @@ public class ProductManager {
 
     public void deleteProduct(int productId) { this.productRepository.deleteProduct(productId); }
 
-    public List<Product> getProducts(Integer startIndex, Integer pageSize, SortingType type, SortingOrder order) {
+    public List<Product> getProducts(Integer startIndex, Integer pageSize, String type, String order) {
         return this.productRepository.getAllProducts(startIndex, pageSize, type, order);
     }
 
