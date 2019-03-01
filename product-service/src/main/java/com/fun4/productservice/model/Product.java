@@ -66,4 +66,10 @@ public class Product {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
+
+    public void updateProduct(String name, String description, BigDecimal price) {
+        if (name != null){ this.name = name;}
+        if (description != null){ this.description = description;}
+        if (price != null && price != BigDecimal.valueOf(0)){this.price = price;}
+    }
 }
