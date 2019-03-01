@@ -15,9 +15,17 @@ public class AuthorizationManager{
     }
 
     public String login(UserCredentials userCredentials) throws Exception{
-        UserCredentials _userCredentials = this.userService.getUserCredentialsByUsername(userCredentials.getUsername());
+        UserCredentials _userCredentials = null;
+        if(userCredentials.getUsername().isEmpty() || userCredentials.getPassword().isEmpty()){
+            throw new Exception("The given username and password combination does not match!");
+        }
+        try {
+            _userCredentials = this.userService.getUserCredentialsByUsername(userCredentials.getUsername());
+        }catch (Exception e){
+            throw new Exception("The given username and password combination does not match!");
+        }
         //Check if user is found
-        if(_userCredentials == null){
+        if(_userCredentials.getUsername() == null && _userCredentials.getPassword() == null){
             throw new Exception("The given username and password combination does not match!");
         }
         //Check if password matches
