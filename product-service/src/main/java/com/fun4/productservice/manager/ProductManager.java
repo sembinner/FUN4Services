@@ -35,4 +35,8 @@ public class ProductManager {
     public List<Product> getProductsForUser(int userId, Integer startIndex, Integer pageSize){
         return this.productRepository.getProductsForUser(userId, startIndex, pageSize);
     }
+
+    public int getTotalCount(){
+        return this.productRepository.getTotalCount();
+    }
 }

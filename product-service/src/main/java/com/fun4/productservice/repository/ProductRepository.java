@@ -5,6 +5,8 @@ import com.fun4.productservice.model.Product;
 import com.fun4.productservice.model.SortingOrder;
 import com.fun4.productservice.model.SortingType;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
@@ -31,6 +33,12 @@ public class ProductRepository {
     public Product addProduct(Product product) {
         this.storeData(product);
         return this.getProductById(product.getId());
+    }
+
+    public int getTotalCount(){
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            return Math.toIntExact((Long)session.createCriteria(Product.class).setProjection(Projections.rowCount()).uniqueResult());
+        }
     }
 
     public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order) {

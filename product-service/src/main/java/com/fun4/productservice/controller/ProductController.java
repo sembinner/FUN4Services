@@ -34,6 +34,11 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order));
     }
 
+    @GetMapping("/totalCount")
+    public ResponseEntity getTotalCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getTotalCount());
+    }
+
     // Get single product - by id
     @GetMapping("/{productId}")
     public ResponseEntity getProductById(@PathVariable(value = "productId") int productId){
