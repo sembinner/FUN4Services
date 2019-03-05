@@ -28,8 +28,8 @@ public class ProductManager {
 
     public void deleteProduct(int productId) { this.productRepository.deleteProduct(productId); }
 
-    public List<Product> getProducts(Integer startIndex, Integer pageSize, String type, String order) {
-        return this.productRepository.getAllProducts(startIndex, pageSize, type, order);
+    public List<Product> getProducts(Integer startIndex, Integer pageSize, String type, String order, Integer shopId, Integer categoryId) {
+        return this.productRepository.getAllProducts(startIndex, pageSize, type, order, shopId, categoryId);
     }
 
     public List<Product> getProductsForUser(int userId, Integer startIndex, Integer pageSize){

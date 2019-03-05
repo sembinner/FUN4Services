@@ -29,9 +29,13 @@ public class ProductController {
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "type", required = false) String type,
-            @RequestParam(value = "order", required = false) String order
+            @RequestParam(value = "order", required = false) String order,
+            @RequestParam(value = "shopId", required = false) Integer shopId,
+            @RequestParam(value = "categoryId", required = false) Integer categoryId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order));
+        System.out.println(shopId);
+        System.out.println(categoryId);
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order, shopId, categoryId));
     }
 
     @GetMapping("/totalCount")
