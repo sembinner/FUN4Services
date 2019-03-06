@@ -1,13 +1,13 @@
-package com.fun4.productservice;
+package com.fun4.shopservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ProductServiceApplication {
+public class ShopServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ProductServiceApplication.class, args);
+        SpringApplication.run(ShopServiceApplication.class, args);
     }
 
 }

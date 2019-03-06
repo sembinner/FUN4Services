@@ -1,12 +1,12 @@
-package com.fun4.productservice.model;
+package com.fun4.shopservice.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "products")
-public class Product {
+@Table(name = "shops")
+public class Shop {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column()
@@ -19,20 +19,16 @@ public class Product {
     @Column()
     private String description;
 
-    @Column(precision = 19, scale = 2)
-    private BigDecimal price;
-
     @Column(updatable = false)
     private int userId;
 
-    public Product(String name, String description, BigDecimal price, int userId){
+    public Shop(String name, String description, int userId){
         this.name = name;
         this.description = description;
-        this.price = price;
         this.userId = userId;
     }
 
-    public Product() {
+    public Shop() {
     }
 
     public int getId() {
@@ -59,17 +55,8 @@ public class Product {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void updateProduct(String name, String description, BigDecimal price) {
+    public void updateShop(String name, String description) {
         if (name != null){ this.name = name;}
         if (description != null){ this.description = description;}
-        if (price != null && price != BigDecimal.valueOf(0)){this.price = price;}
     }
 }
