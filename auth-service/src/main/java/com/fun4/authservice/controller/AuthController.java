@@ -2,9 +2,11 @@ package com.fun4.authservice.controller;
 
 import com.fun4.authservice.manager.AuthorizationManager;
 import com.fun4.authservice.pojo.UserCredentials;
+import com.fun4.authservice.pojo.tokenPojo;
 import com.fun4.authservice.security.JwtTokenProvider;
 import com.fun4.authservice.service.IUserService;
 import com.fun4.authservice.service.UserService;
+import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +30,7 @@ public class AuthController {
     public ResponseEntity login(@Valid @RequestBody UserCredentials userCredentials){
         try {
             String s = this.authorizationManager.login(userCredentials);
-            return ResponseEntity.status(HttpStatus.OK).body(s);
+            return ResponseEntity.status(HttpStatus.OK).body(new Gson().toJson(new tokenPojo(s)));
         } catch (Exception e) {
           return  ResponseEntity.status(HttpStatus.CONFLICT).body(e.getMessage());
         }
