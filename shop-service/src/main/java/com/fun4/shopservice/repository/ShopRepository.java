@@ -1,9 +1,23 @@
 package com.fun4.shopservice.repository;
 
-import com.fun4.productservice.manager.HibernateManager;
+import com.fun4.shopservice.manager.HibernateManager;
+import com.fun4.shopservice.model.Shop;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class ShopRepository {
+
+    public List<Shop> getShops() {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            Query<Shop> query = session.createQuery("from Shop s");
+            return query.getResultList();
+        } catch (Exception e){
+            return null;
+        }
+    }
+
     private void storeData(Object objectToSave) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();

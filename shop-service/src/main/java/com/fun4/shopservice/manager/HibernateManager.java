@@ -1,4 +1,4 @@
-package com.fun4.productservice.manager;
+package com.fun4.shopservice.manager;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
