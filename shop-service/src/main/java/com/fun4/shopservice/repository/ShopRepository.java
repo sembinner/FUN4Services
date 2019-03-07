@@ -38,6 +38,11 @@ public class ShopRepository {
         return this.getShopById(shop.getId());
     }
 
+    public Shop updateShop(Shop shop) {
+        this.updateData(shop);
+        return this.getShopById(shop.getId());
+    }
+
     private void storeData(Object objectToSave) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();

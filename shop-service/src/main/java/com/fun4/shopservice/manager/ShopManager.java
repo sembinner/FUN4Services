@@ -17,4 +17,6 @@ public class ShopManager {
     public Shop getShopById(int shopId){return this.shopRepository.getShopById(shopId);}
 
     public Shop addShop(Shop shop){return this.shopRepository.addShop(shop);}
+
+    public Shop updateShop(Shop shop){return this.shopRepository.updateShop(shop);}
 }
