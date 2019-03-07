@@ -18,8 +18,12 @@ public class ShopController {
     }
 
 
+    // Get shops
     @GetMapping()
-    public ResponseEntity getAllShops(){
-        return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShops());
+    public ResponseEntity getAllShops(
+            @RequestParam(value = "startIndex", required = false) Integer startIndex,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize
+    ){
+        return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShops(startIndex, pageSize));
     }
 }

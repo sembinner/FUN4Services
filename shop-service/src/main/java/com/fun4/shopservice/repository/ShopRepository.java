@@ -9,9 +9,16 @@ import java.util.List;
 
 public class ShopRepository {
 
-    public List<Shop> getShops() {
+    public List<Shop> getShops(Integer startIndex, Integer pageSize) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             Query<Shop> query = session.createQuery("from Shop s");
+
+            // Pagination if requested
+            if (startIndex != null && pageSize != null){
+                query.setFirstResult(startIndex * pageSize);
+                query.setMaxResults(pageSize);
+            }
+
             return query.getResultList();
         } catch (Exception e){
             return null;

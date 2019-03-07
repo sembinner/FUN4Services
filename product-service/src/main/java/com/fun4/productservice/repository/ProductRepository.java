@@ -51,14 +51,11 @@ public class ProductRepository {
                 }
 
             }
-            System.out.println("This is the query :" + queryString);
 
             Query<Product> query = session.createQuery(queryString);
 
             // Pagination
             if (startIndex != null && pageSize != null) {
-                System.out.println(startIndex);
-                System.out.println(pageSize);
                 query.setFirstResult(startIndex * pageSize);
                 query.setMaxResults(pageSize);
             }
