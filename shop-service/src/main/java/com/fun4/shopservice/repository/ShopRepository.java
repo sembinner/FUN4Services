@@ -43,6 +43,10 @@ public class ShopRepository {
         return this.getShopById(shop.getId());
     }
 
+    public void deleteShop(int shopId){
+        this.deleteData(this.getShopById(shopId));
+    }
+
     private void storeData(Object objectToSave) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();

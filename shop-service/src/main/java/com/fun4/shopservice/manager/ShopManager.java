@@ -19,4 +19,6 @@ public class ShopManager {
     public Shop addShop(Shop shop){return this.shopRepository.addShop(shop);}
 
     public Shop updateShop(Shop shop){return this.shopRepository.updateShop(shop);}
+
+    public void deleteShop(int shopId) {this.shopRepository.deleteShop(shopId);}
 }

@@ -5,6 +5,7 @@ import com.fun4.shopservice.model.Shop;
 import com.fun4.shopservice.viewmodel.CreateShopViewModel;
 import com.fun4.shopservice.viewmodel.UpdateShopViewModel;
 import io.swagger.annotations.Api;
+import org.apache.coyote.http11.AbstractHttp11JsseProtocol;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -59,6 +60,17 @@ public class ShopController {
             return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.updateShop(shop));
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("something went wrong while updating the shop");
+        }
+    }
+
+    // Delete a product - by id
+    @DeleteMapping("/{shopId}")
+    public ResponseEntity deleteShop(@PathVariable(value = "shopId") int shopId){
+        try {
+            this.shopManager.deleteShop(shopId);
+            return ResponseEntity.status(HttpStatus.OK).body("Shop has been deleted");
+        } catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Shop was not deleted");
         }
     }
 }
