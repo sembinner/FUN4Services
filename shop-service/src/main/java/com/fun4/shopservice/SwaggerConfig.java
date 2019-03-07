@@ -1,4 +1,4 @@
-package com.fun4.productservice;
+package com.fun4.shopservice;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

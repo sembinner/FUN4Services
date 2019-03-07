@@ -13,7 +13,6 @@ public class Shop {
     private int id;
 
     @Column()
-    @NotBlank
     private String name;
 
     @Column()

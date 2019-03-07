@@ -7,7 +7,6 @@ import com.fun4.productservice.model.SortingType;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
 import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
 import io.swagger.annotations.Api;
-import io.swagger.models.auth.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

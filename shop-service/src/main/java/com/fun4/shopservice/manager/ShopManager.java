@@ -15,4 +15,6 @@ public class ShopManager {
     public List<Shop> getShops(Integer startIndex, Integer pageSize){return this.shopRepository.getShops(startIndex, pageSize);}
 
     public Shop getShopById(int shopId){return this.shopRepository.getShopById(shopId);}
+
+    public Shop addShop(Shop shop){return this.shopRepository.addShop(shop);}
 }
