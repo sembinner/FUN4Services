@@ -26,4 +26,10 @@ public class ShopController {
     ){
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShops(startIndex, pageSize));
     }
+
+    // Get shop - by id
+    @GetMapping("/{shopId}")
+    public ResponseEntity getShopById (@PathVariable(value = "shopId") int shopId) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShopById(shopId));
+    }
 }

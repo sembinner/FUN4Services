@@ -25,6 +25,14 @@ public class ShopRepository {
         }
     }
 
+    public Shop getShopById(int shopId){
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()){
+            Query<Shop> query = session.createQuery("from Shop where id = :id", Shop.class);
+            query.setParameter("id", shopId);
+            return query.uniqueResult();
+        }
+    }
+
     private void storeData(Object objectToSave) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();
