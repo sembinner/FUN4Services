@@ -5,6 +5,8 @@ import com.fun4.productservice.model.Product;
 import com.fun4.productservice.model.SortingOrder;
 import com.fun4.productservice.model.SortingType;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projection;
+import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
@@ -33,32 +35,39 @@ public class ProductRepository {
         return this.getProductById(product.getId());
     }
 
-    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, SortingType type, SortingOrder order) {
+    public int getTotalCount(){
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            return Math.toIntExact((Long)session.createCriteria(Product.class).setProjection(Projections.rowCount()).uniqueResult());
+        }
+    }
+
+    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             String queryString = "from Product p";
 
             if (type != null & order != null){
-                if (type == SortingType.PRICE){
+                if (type.equals("PRICE")){
+                    System.out.println("price ASC");
                     queryString += " ORDER BY p.price";
                 } else {
+                    System.out.println("price DESC");
                     queryString += " ORDER BY p.name";
                 }
 
-                if (order == SortingOrder.ASCENDING){
+                if (order.equals("ASCENDING")){
+                    System.out.println("name ASC");
                     queryString += " ASC";
                 } else {
+                    System.out.println("name DESC");
                     queryString += " DESC";
                 }
 
             }
-            System.out.println("This is the query :" + queryString);
 
             Query<Product> query = session.createQuery(queryString);
 
             // Pagination
             if (startIndex != null && pageSize != null) {
-                System.out.println(startIndex);
-                System.out.println(pageSize);
                 query.setFirstResult(startIndex * pageSize);
                 query.setMaxResults(pageSize);
             }
