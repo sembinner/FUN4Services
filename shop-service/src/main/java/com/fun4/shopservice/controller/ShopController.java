@@ -5,7 +5,6 @@ import com.fun4.shopservice.model.Shop;
 import com.fun4.shopservice.viewmodel.CreateShopViewModel;
 import com.fun4.shopservice.viewmodel.UpdateShopViewModel;
 import io.swagger.annotations.Api;
-import org.apache.coyote.http11.AbstractHttp11JsseProtocol;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -35,6 +34,11 @@ public class ShopController {
     @GetMapping("/{shopId}")
     public ResponseEntity getShopById (@PathVariable(value = "shopId") int shopId) {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShopById(shopId));
+    }
+
+    @GetMapping("/totalCount")
+    public ResponseEntity getTotalCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getTotalCount());
     }
 
     // Create new Shop
