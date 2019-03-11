@@ -7,7 +7,6 @@ import com.fun4.productservice.model.SortingType;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
 import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
 import io.swagger.annotations.Api;
-import io.swagger.models.auth.In;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,23 +22,20 @@ public class ProductController {
         this.productManager = new ProductManager();
     }
 
-    // Get all Products
+    // Get Products
     @GetMapping()
-    public ResponseEntity getAllProducts(
+    public ResponseEntity getProducts(
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "order", required = false) String order
     ) {
-        SortingType sortingType = null;
-        SortingOrder sortingOrder = null;
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order));
+    }
 
-        if (type != null && order != null){
-            sortingType = SortingType.values()[Integer.parseInt(type)];
-            sortingOrder = SortingOrder.values()[Integer.parseInt(order)];
-        }
-
-        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, sortingType, sortingOrder));
+    @GetMapping("/totalCount")
+    public ResponseEntity getTotalCount(){
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getTotalCount());
     }
 
     // Get single product - by id
