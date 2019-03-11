@@ -3,6 +3,7 @@ package com.fun4.shopservice.repository;
 import com.fun4.shopservice.manager.HibernateManager;
 import com.fun4.shopservice.model.Shop;
 import org.hibernate.Session;
+import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
 
 import java.util.List;
@@ -30,6 +31,12 @@ public class ShopRepository {
             Query<Shop> query = session.createQuery("from Shop where id = :id", Shop.class);
             query.setParameter("id", shopId);
             return query.uniqueResult();
+        }
+    }
+
+    public int getTotalCount(){
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            return Math.toIntExact((Long)session.createCriteria(Shop.class).setProjection(Projections.rowCount()).uniqueResult());
         }
     }
 

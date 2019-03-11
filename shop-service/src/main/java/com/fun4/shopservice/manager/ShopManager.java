@@ -21,4 +21,8 @@ public class ShopManager {
     public Shop updateShop(Shop shop){return this.shopRepository.updateShop(shop);}
 
     public void deleteShop(int shopId) {this.shopRepository.deleteShop(shopId);}
+
+    public int getTotalCount(){
+        return this.shopRepository.getTotalCount();
+    }
 }
