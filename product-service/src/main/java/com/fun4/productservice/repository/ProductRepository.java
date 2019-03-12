@@ -41,9 +41,31 @@ public class ProductRepository {
         }
     }
 
-    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order, Integer shopId, Integer categoryId) {
+    public int getTotalCountForShop(int shopId){
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+//            return Math.toIntExact((Long)session.createCriteria(Product.class).setProjection(Projections.rowCount()).uniqueResult());
+            Query query = session.createQuery("select count(p.id) from Product p" +
+                    " where p.shopId = :shopId");
+            query.setParameter("shopId", shopId);
+
+            return Math.toIntExact((Long)query.uniqueResult());
+        }
+    }
+
+    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order, String shopId, String categoryId) {
+        System.out.println("shop id equals " + shopId);
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             String queryString = "from Product p";
+
+            if (shopId != null) {
+                System.out.println("shopId not null, add where to the query: " + shopId);
+                queryString += " where p.shopId=:shopId";
+            }
+
+            // No categories in the database yet
+//            if (categoryId != null) {
+//                System.out.println("categoryId not null, add where to the query");
+//            }
 
             if (type != null & order != null) {
                 if (type.equals("PRICE")) {
@@ -60,27 +82,11 @@ public class ProductRepository {
 
             }
 
-            if (shopId != null) {
-                System.out.println("shopId not null, add where to the query");
-                queryString += " where shopId=:shopId";
-            }
-
-            // No categories in the database yet
-//            if (categoryId != null) {
-//                System.out.println("categoryId not null, add where to the query");
-//            }
-
             Query<Product> query = session.createQuery(queryString);
 
-            // Pagination
-            if (startIndex != null && pageSize != null) {
-                query.setFirstResult(startIndex * pageSize);
-                query.setMaxResults(pageSize);
-            }
-
             if (shopId != null) {
                 System.out.println("shopId not null, add where to the query");
-                query.setParameter("shopId", shopId);
+                query.setParameter("shopId", Integer.parseInt(shopId));
             }
 
             // No categories in the database yet
@@ -88,6 +94,12 @@ public class ProductRepository {
 //                System.out.println("categoryId not null, add where to the query");
 //                query.setParameter("categoryId", categoryId);
 //            }
+
+            // Pagination
+            if (startIndex != null && pageSize != null) {
+                query.setFirstResult(startIndex * pageSize);
+                query.setMaxResults(pageSize);
+            }
 
             return query.getResultList();
         }

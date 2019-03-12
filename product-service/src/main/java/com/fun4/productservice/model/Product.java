@@ -1,5 +1,7 @@
 package com.fun4.productservice.model;
 
+import com.sun.istack.Nullable;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
@@ -23,10 +25,10 @@ public class Product {
     private BigDecimal price;
 
     @Column(updatable = false)
-    private int userId;
+    private Integer userId;
 
     @Column()
-    private int shopId;
+    private Integer shopId;
 
     public Product(String name, String description, BigDecimal price, int userId){
         this.name = name;
