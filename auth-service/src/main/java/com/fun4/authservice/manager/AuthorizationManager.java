@@ -36,4 +36,8 @@ public class AuthorizationManager{
         return JwtTokenProvider.getInstance().createToken(userCredentials.getUsername(), "user");
 
     }
+
+    public boolean tokenValid(String token) throws Exception{
+        return JwtTokenProvider.getInstance().validateToken(token);
+    }
 }

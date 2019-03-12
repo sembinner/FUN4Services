@@ -1,9 +1,9 @@
 package com.fun4.authservice.pojo;
 
-public class tokenPojo {
+public class TokenPojo {
     private String token;
 
-    public tokenPojo(String token) {
+    public TokenPojo(String token) {
         this.token = token;
     }
 
