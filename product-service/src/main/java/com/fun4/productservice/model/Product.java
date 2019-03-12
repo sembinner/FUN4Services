@@ -25,6 +25,9 @@ public class Product {
     @Column(updatable = false)
     private int userId;
 
+    @Column()
+    private int shopId;
+
     public Product(String name, String description, BigDecimal price, int userId){
         this.name = name;
         this.description = description;

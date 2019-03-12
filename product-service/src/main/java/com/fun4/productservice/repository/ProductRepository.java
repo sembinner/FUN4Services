@@ -41,28 +41,34 @@ public class ProductRepository {
         }
     }
 
-    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order) {
+    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order, Integer shopId, Integer categoryId) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             String queryString = "from Product p";
 
-            if (type != null & order != null){
-                if (type.equals("PRICE")){
-                    System.out.println("price ASC");
+            if (type != null & order != null) {
+                if (type.equals("PRICE")) {
                     queryString += " ORDER BY p.price";
                 } else {
-                    System.out.println("price DESC");
                     queryString += " ORDER BY p.name";
                 }
 
-                if (order.equals("ASCENDING")){
-                    System.out.println("name ASC");
+                if (order.equals("ASCENDING")) {
                     queryString += " ASC";
                 } else {
-                    System.out.println("name DESC");
                     queryString += " DESC";
                 }
 
             }
+
+            if (shopId != null) {
+                System.out.println("shopId not null, add where to the query");
+                queryString += " where shopId=:shopId";
+            }
+
+            // No categories in the database yet
+//            if (categoryId != null) {
+//                System.out.println("categoryId not null, add where to the query");
+//            }
 
             Query<Product> query = session.createQuery(queryString);
 
@@ -71,6 +77,17 @@ public class ProductRepository {
                 query.setFirstResult(startIndex * pageSize);
                 query.setMaxResults(pageSize);
             }
+
+            if (shopId != null) {
+                System.out.println("shopId not null, add where to the query");
+                query.setParameter("shopId", shopId);
+            }
+
+            // No categories in the database yet
+//            if (categoryId != null) {
+//                System.out.println("categoryId not null, add where to the query");
+//                query.setParameter("categoryId", categoryId);
+//            }
 
             return query.getResultList();
         }
