@@ -31,7 +31,7 @@ public class UserController {
     public ResponseEntity addUser(CreateUserViewmodel viewmodel){
         User user  = new User(viewmodel.getEmail(), viewmodel.getUsername(), viewmodel.getFirstName(), viewmodel.getLastName(), viewmodel.getPassword());
         try {
-            return ResponseEntity.status(HttpStatus.OK).body(this.userManager.addUser(user));
+            return ResponseEntity.status(HttpStatus.OK).body(this.userManager.addUser(user, viewmodel.getConfirmPassword()));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
