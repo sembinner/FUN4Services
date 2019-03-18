@@ -30,8 +30,6 @@ public class ProductController {
             @RequestParam(value = "shopId", required = false) String shopId,
             @RequestParam(value = "categoryId", required = false) String categoryId
     ) {
-        System.out.println(shopId);
-        System.out.println(categoryId);
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order, shopId, categoryId));
     }
 

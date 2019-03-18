@@ -53,20 +53,20 @@ public class ProductRepository {
     }
 
     public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order, String shopId, String categoryId) {
-        System.out.println("shop id equals " + shopId);
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             String queryString = "from Product p";
 
-            if (shopId != null) {
-                System.out.println("shopId not null, add where to the query: " + shopId);
+            //Create shopId field
+            if (!shopId.equals("null")) {
                 queryString += " where p.shopId=:shopId";
             }
 
             // No categories in the database yet
-//            if (categoryId != null) {
+//            if (!categoryId.equals("null)) {
 //                System.out.println("categoryId not null, add where to the query");
 //            }
 
+            //Setting sorting if needed
             if (type != null & order != null) {
                 if (type.equals("PRICE")) {
                     queryString += " ORDER BY p.price";
@@ -84,13 +84,13 @@ public class ProductRepository {
 
             Query<Product> query = session.createQuery(queryString);
 
-            if (shopId != null) {
-                System.out.println("shopId not null, add where to the query");
+            //Setting shopId field
+            if (!shopId.equals("null")) {
                 query.setParameter("shopId", Integer.parseInt(shopId));
             }
 
             // No categories in the database yet
-//            if (categoryId != null) {
+//            if (!categoryId.equals("null)) {
 //                System.out.println("categoryId not null, add where to the query");
 //                query.setParameter("categoryId", categoryId);
 //            }
