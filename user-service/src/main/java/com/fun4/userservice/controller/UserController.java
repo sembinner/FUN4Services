@@ -28,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity addUser(CreateUserViewmodel viewmodel){
+    public ResponseEntity addUser(@RequestBody CreateUserViewmodel viewmodel){
         User user  = new User(viewmodel.getEmail(), viewmodel.getUsername(), viewmodel.getFirstName(), viewmodel.getLastName(), viewmodel.getPassword());
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.userManager.addUser(user, viewmodel.getConfirmPassword()));
