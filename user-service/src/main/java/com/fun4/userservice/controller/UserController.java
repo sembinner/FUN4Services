@@ -2,6 +2,7 @@ package com.fun4.userservice.controller;
 
 import com.fun4.userservice.manager.UserManager;
 import com.fun4.userservice.model.User;
+import com.fun4.userservice.repository.UserRepository;
 import com.fun4.userservice.security.JwtTokenProvider;
 import com.fun4.userservice.viewmodel.CreateUserViewmodel;
 import io.swagger.annotations.Api;
@@ -18,7 +19,7 @@ public class UserController {
     JwtTokenProvider jwtTokenProvider;
 
     public UserController() {
-        this.userManager = new UserManager();
+        this.userManager = new UserManager(new UserRepository());
         this.jwtTokenProvider = new JwtTokenProvider();
     }
 

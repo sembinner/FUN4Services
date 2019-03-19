@@ -7,7 +7,7 @@ import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
 
-public class UserRepository {
+public class UserRepository implements IUserRepository {
 
     public User getUserByUsername(String username) {
         Session session = HibernateManager.getInstance().getSessionFactory().openSession();

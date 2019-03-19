@@ -1,6 +1,7 @@
 package com.fun4.userservice.manager;
 
 import com.fun4.userservice.model.User;
+import com.fun4.userservice.repository.IUserRepository;
 import com.fun4.userservice.repository.UserRepository;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -9,13 +10,13 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class UserManager {
-    private UserRepository userRepository;
+    private IUserRepository userRepository;
 
     private static final Pattern VALID_EMAIL_ADDRESS_REGEX =
             Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
-    public UserManager() {
-        this.userRepository = new UserRepository();
+    public UserManager(IUserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public User getUserByUsername(String username){
