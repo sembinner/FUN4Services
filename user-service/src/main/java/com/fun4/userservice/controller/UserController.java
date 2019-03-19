@@ -10,17 +10,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @CrossOrigin
 @Api(value="/users",description="User Service",produces ="application/json")
 @RequestMapping("/users")
 public class UserController {
-    UserManager userManager;
-    JwtTokenProvider jwtTokenProvider;
+    private UserManager userManager;
+    private JwtTokenProvider jwtTokenProvider;
 
     public UserController() {
         this.userManager = new UserManager(new UserRepository());
         this.jwtTokenProvider = new JwtTokenProvider();
+    }
+
+    @GetMapping("/userId")
+    public ResponseEntity test(HttpServletRequest request) {
+        String token = this.jwtTokenProvider.resolveToken(request);
+        Integer body = this.jwtTokenProvider.getUserId(token);
+        return ResponseEntity.status(HttpStatus.OK).body(body);
     }
 
     @GetMapping("/{username}")

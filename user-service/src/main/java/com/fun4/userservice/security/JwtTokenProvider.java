@@ -21,6 +21,11 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
+    public int getUserId(String token) {
+        String returnString = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().toString();
+        return Integer.parseInt(getIdFromString(returnString));
+    }
+
     public String getBody(String token) {
         return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().toString();
     }
@@ -45,5 +50,12 @@ public class JwtTokenProvider {
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");
         }
+    }
+
+    //Filters out and returns the id from the body string.
+    private String getIdFromString(String body){
+        body = body.substring(body.lastIndexOf("Id=") + 3);
+        body = body.substring(0, body.length() -1);
+        return body;
     }
 }
