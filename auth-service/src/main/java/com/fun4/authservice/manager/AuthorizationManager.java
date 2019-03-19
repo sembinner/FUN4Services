@@ -33,7 +33,7 @@ public class AuthorizationManager{
             throw new Exception("The given username and password combination does not match!");
         }
 
-        return JwtTokenProvider.getInstance().createToken(userCredentials.getUsername(), "user");
+        return JwtTokenProvider.getInstance().createToken(userCredentials.getUsername(), "user", _userCredentials.getId());
 
     }
 

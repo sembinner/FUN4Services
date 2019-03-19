@@ -26,7 +26,7 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String username, String role) {
+    public String createToken(String username, String role, int userId) {
         Claims claims = Jwts.claims().setSubject(username);
 
         Date now = new Date();
@@ -37,6 +37,7 @@ public class JwtTokenProvider {
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .claim("Role", role)
+                .claim("Id", userId)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
     }

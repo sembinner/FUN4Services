@@ -3,6 +3,15 @@ package com.fun4.authservice.pojo;
 public class UserCredentials {
     private String username;
     private String password;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
