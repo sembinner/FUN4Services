@@ -2,8 +2,6 @@ package com.fun4.productservice.controller;
 
 import com.fun4.productservice.manager.ProductManager;
 import com.fun4.productservice.model.Product;
-import com.fun4.productservice.model.SortingOrder;
-import com.fun4.productservice.model.SortingType;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
 import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
 import io.swagger.annotations.Api;
@@ -28,14 +26,21 @@ public class ProductController {
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "type", required = false) String type,
-            @RequestParam(value = "order", required = false) String order
+            @RequestParam(value = "order", required = false) String order,
+            @RequestParam(value = "shopId", required = false) String shopId,
+            @RequestParam(value = "categoryId", required = false) String categoryId
     ) {
-        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order));
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order, shopId, categoryId));
     }
 
     @GetMapping("/totalCount")
     public ResponseEntity getTotalCount(){
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getTotalCount());
+    }
+
+    @GetMapping("/totalCountForShop/{shopId}")
+    public ResponseEntity getTotalCountForShop(@PathVariable(value = "shopId") int shopId){
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getTotalCountForShop(shopId));
     }
 
     // Get single product - by id

@@ -41,30 +41,59 @@ public class ProductRepository {
         }
     }
 
-    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order) {
+    public int getTotalCountForShop(int shopId){
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+//            return Math.toIntExact((Long)session.createCriteria(Product.class).setProjection(Projections.rowCount()).uniqueResult());
+            Query query = session.createQuery("select count(p.id) from Product p" +
+                    " where p.shopId = :shopId");
+            query.setParameter("shopId", shopId);
+
+            return Math.toIntExact((Long)query.uniqueResult());
+        }
+    }
+
+    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order, String shopId, String categoryId) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             String queryString = "from Product p";
 
-            if (type != null & order != null){
-                if (type.equals("PRICE")){
-                    System.out.println("price ASC");
+            //Create shopId field
+            if (!shopId.equals("null")) {
+                queryString += " where p.shopId=:shopId";
+            }
+
+            // No categories in the database yet
+//            if (!categoryId.equals("null)) {
+//                System.out.println("categoryId not null, add where to the query");
+//            }
+
+            //Setting sorting if needed
+            if (type != null & order != null) {
+                if (type.equals("PRICE")) {
                     queryString += " ORDER BY p.price";
                 } else {
-                    System.out.println("price DESC");
                     queryString += " ORDER BY p.name";
                 }
 
-                if (order.equals("ASCENDING")){
-                    System.out.println("name ASC");
+                if (order.equals("ASCENDING")) {
                     queryString += " ASC";
                 } else {
-                    System.out.println("name DESC");
                     queryString += " DESC";
                 }
 
             }
 
             Query<Product> query = session.createQuery(queryString);
+
+            //Setting shopId field
+            if (!shopId.equals("null")) {
+                query.setParameter("shopId", Integer.parseInt(shopId));
+            }
+
+            // No categories in the database yet
+//            if (!categoryId.equals("null)) {
+//                System.out.println("categoryId not null, add where to the query");
+//                query.setParameter("categoryId", categoryId);
+//            }
 
             // Pagination
             if (startIndex != null && pageSize != null) {
