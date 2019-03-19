@@ -2,6 +2,7 @@ package com.fun4.authservice;
 
 import com.fun4.authservice.manager.AuthorizationManager;
 import com.fun4.authservice.pojo.UserCredentials;
+import com.fun4.authservice.service.UserServiceMemoryContext;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -19,7 +20,7 @@ public class AuthServiceApplicationTests {
 
 	@Before
 	public void setUp() throws Exception {
-		this.authorizationManager = new AuthorizationManager();
+		this.authorizationManager = new AuthorizationManager(new UserServiceMemoryContext());
 	}
 
 	@Test

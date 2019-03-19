@@ -4,6 +4,7 @@ import com.fun4.authservice.manager.AuthorizationManager;
 import com.fun4.authservice.pojo.UserCredentials;
 import com.fun4.authservice.pojo.TokenPojo;
 import com.fun4.authservice.pojo.ValidateTokenPojo;
+import com.fun4.authservice.service.UserService;
 import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class AuthController {
     private AuthorizationManager authorizationManager;
 
     public AuthController() {
-        this.authorizationManager = new AuthorizationManager();
+        this.authorizationManager = new AuthorizationManager(new UserService());
     }
 
     @PostMapping("/login")

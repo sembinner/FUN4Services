@@ -10,8 +10,8 @@ public class AuthorizationManager{
 
     private IUserService userService;
 
-    public AuthorizationManager() {
-    this.userService = new UserService();
+    public AuthorizationManager(IUserService userService) {
+    this.userService = userService;
     }
 
     public String login(UserCredentials userCredentials) throws Exception{
