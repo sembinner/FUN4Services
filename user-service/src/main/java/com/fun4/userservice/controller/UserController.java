@@ -25,13 +25,6 @@ public class UserController {
         this.jwtTokenProvider = new JwtTokenProvider();
     }
 
-    @GetMapping("/userId")
-    public ResponseEntity test(HttpServletRequest request) {
-        String token = this.jwtTokenProvider.resolveToken(request);
-        Integer body = this.jwtTokenProvider.getUserId(token);
-        return ResponseEntity.status(HttpStatus.OK).body(body);
-    }
-
     @GetMapping("/{username}")
     public ResponseEntity getUserByUsername(@PathVariable(value = "username") String username){
         return ResponseEntity.status(HttpStatus.OK).body(userManager.getUserByUsername(username));
