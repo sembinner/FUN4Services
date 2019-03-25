@@ -16,9 +16,3 @@ auth-service/.idea/compiler.xml
 auth-service/.idea/workspace.xml
 auth-service/.idea/encodings.xml
 auth-service/.idea/vcs.xml
-
-product-service/src/main/resources/hibernate\.cfg\.xml
-
-shop-service/src/main/resources/hibernate\.cfg\.xml
-
-user-service/src/main/resources/hibernate\.cfg\.xml
