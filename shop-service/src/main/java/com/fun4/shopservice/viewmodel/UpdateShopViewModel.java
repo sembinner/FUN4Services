@@ -9,6 +9,8 @@ public class UpdateShopViewModel {
 
     private int userId;
 
+    private boolean personal;
+
     public String getName() {
         return name;
     }
@@ -39,5 +41,13 @@ public class UpdateShopViewModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(boolean personal) {
+        this.personal = personal;
     }
 }

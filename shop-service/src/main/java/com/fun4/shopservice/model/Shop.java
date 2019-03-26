@@ -21,7 +21,10 @@ public class Shop {
     @Column(updatable = false)
     private int userId;
 
-    public Shop(String name, String description, int userId){
+    @Column(updatable = false)
+    private boolean personal;
+
+    public Shop(String name, String description, int userId, boolean personal){
         this.name = name;
         this.description = description;
         this.userId = userId;
@@ -57,5 +60,13 @@ public class Shop {
     public void updateShop(String name, String description) {
         if (name != null){ this.name = name;}
         if (description != null){ this.description = description;}
+    }
+
+    public boolean isPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(boolean personal) {
+        this.personal = personal;
     }
 }

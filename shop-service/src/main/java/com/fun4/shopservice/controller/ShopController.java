@@ -41,11 +41,17 @@ public class ShopController {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getTotalCount());
     }
 
+    @GetMapping("/personalPage/{userId}")
+    public ResponseEntity getPersonalPageId(@PathVariable(value = "userId") int userId) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getPersonalPage(userId));
+    }
+
+
     // Create new Shop
     @PostMapping()
     public ResponseEntity addShop(CreateShopViewModel viewModel){
         System.out.println(viewModel + viewModel.getName() + viewModel.getDescription() + viewModel.getUserId());
-        Shop shop = new Shop(viewModel.getName(), viewModel.getDescription(), viewModel.getUserId());
+        Shop shop = new Shop(viewModel.getName(), viewModel.getDescription(), viewModel.getUserId(), viewModel.isPersonal());
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.addShop(shop));
         } catch (Exception e) {

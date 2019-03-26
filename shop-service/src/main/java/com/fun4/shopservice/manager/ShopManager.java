@@ -25,4 +25,6 @@ public class ShopManager {
     public int getTotalCount(){
         return this.shopRepository.getTotalCount();
     }
+
+    public Shop getPersonalPage(int userId) { return this.shopRepository.getPersonalPage(userId); }
 }

@@ -12,7 +12,7 @@ public class ShopRepository {
 
     public List<Shop> getShops(Integer startIndex, Integer pageSize) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
-            Query<Shop> query = session.createQuery("from Shop s");
+            Query<Shop> query = session.createQuery("from Shop s where personal = false", Shop.class);
 
             // Pagination if requested
             if (startIndex != null && pageSize != null){
@@ -37,6 +37,14 @@ public class ShopRepository {
     public int getTotalCount(){
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             return Math.toIntExact((Long)session.createCriteria(Shop.class).setProjection(Projections.rowCount()).uniqueResult());
+        }
+    }
+
+    public Shop getPersonalPage(int userId) {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            Query<Shop> query = session.createQuery("from Shop s where userId = :userId AND personal = true", Shop.class);
+            query.setParameter("userId", userId);
+            return query.uniqueResult();
         }
     }
 
