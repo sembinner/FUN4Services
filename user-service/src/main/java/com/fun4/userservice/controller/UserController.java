@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @RestController
 @CrossOrigin
@@ -50,6 +52,12 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
         }
+        Pattern pattern = Pattern.compile("(?<=Id=)(.*)(?=})");
+        Matcher matcher = pattern.matcher(jwtTokenProvider.getBody(token));
+        if (matcher.find()) {
+            return ResponseEntity.status(HttpStatus.OK).body(matcher.group());
+        }
+
         return ResponseEntity.status(HttpStatus.OK).body(jwtTokenProvider.getBody(token));
     }
 

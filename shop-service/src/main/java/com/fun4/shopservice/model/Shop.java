@@ -28,6 +28,7 @@ public class Shop {
         this.name = name;
         this.description = description;
         this.userId = userId;
+        this.personal = personal;
     }
 
     public Shop() {

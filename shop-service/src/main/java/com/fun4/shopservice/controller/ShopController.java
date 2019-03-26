@@ -50,7 +50,7 @@ public class ShopController {
     // Create new Shop
     @PostMapping()
     public ResponseEntity addShop(CreateShopViewModel viewModel){
-        System.out.println(viewModel + viewModel.getName() + viewModel.getDescription() + viewModel.getUserId());
+        System.out.println(viewModel + viewModel.getName() + viewModel.getDescription() + viewModel.getUserId() + viewModel.isPersonal());
         Shop shop = new Shop(viewModel.getName(), viewModel.getDescription(), viewModel.getUserId(), viewModel.isPersonal());
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.addShop(shop));
