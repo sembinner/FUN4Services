@@ -27,4 +27,8 @@ public class ShopManager {
     }
 
     public Shop getPersonalPage(int userId) { return this.shopRepository.getPersonalPage(userId); }
+
+    public List<Shop> getShopsForUser(int userId, Integer startIndex, Integer pageSize) {
+        return this.shopRepository.getShopsForUser(userId, startIndex, pageSize);
+    }
 }

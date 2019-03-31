@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin
-@Api(value="/shops",description="Shop Service",produces ="application/json")
+@Api(value = "/shops", description = "Shop Service", produces = "application/json")
 @RequestMapping("/shops")
 public class ShopController {
     ShopManager shopManager;
@@ -26,18 +26,18 @@ public class ShopController {
     public ResponseEntity getAllShops(
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
             @RequestParam(value = "pageSize", required = false) Integer pageSize
-    ){
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShops(startIndex, pageSize));
     }
 
     // Get shop - by id
     @GetMapping("/{shopId}")
-    public ResponseEntity getShopById (@PathVariable(value = "shopId") int shopId) {
+    public ResponseEntity getShopById(@PathVariable(value = "shopId") int shopId) {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShopById(shopId));
     }
 
     @GetMapping("/totalCount")
-    public ResponseEntity getTotalCount(){
+    public ResponseEntity getTotalCount() {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getTotalCount());
     }
 
@@ -46,10 +46,19 @@ public class ShopController {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getPersonalPage(userId));
     }
 
+    // Get shops per user
+    @GetMapping("/users/{userId}")
+    public ResponseEntity getShopsForUser(
+            @PathVariable(value = "userId") int userId,
+            @RequestParam(value = "startIndex", required = false) Integer startIndex,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(shopManager.getShopsForUser(userId, startIndex, pageSize));
+    }
 
     // Create new Shop
     @PostMapping()
-    public ResponseEntity addShop(CreateShopViewModel viewModel){
+    public ResponseEntity addShop(CreateShopViewModel viewModel) {
         System.out.println(viewModel + viewModel.getName() + viewModel.getDescription() + viewModel.getUserId() + viewModel.isPersonal());
         Shop shop = new Shop(viewModel.getName(), viewModel.getDescription(), viewModel.getUserId(), viewModel.isPersonal());
         try {
@@ -61,25 +70,25 @@ public class ShopController {
 
     // Update shop
     @PutMapping("/{id}")
-    public ResponseEntity updateShop(UpdateShopViewModel viewmodel){
+    public ResponseEntity updateShop(UpdateShopViewModel viewmodel) {
         Shop shop = this.shopManager.getShopById(viewmodel.getId());
 
         shop.updateShop(viewmodel.getName(), viewmodel.getDescription());
 
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.updateShop(shop));
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("something went wrong while updating the shop");
         }
     }
 
     // Delete a product - by id
     @DeleteMapping("/{shopId}")
-    public ResponseEntity deleteShop(@PathVariable(value = "shopId") int shopId){
+    public ResponseEntity deleteShop(@PathVariable(value = "shopId") int shopId) {
         try {
             this.shopManager.deleteShop(shopId);
             return ResponseEntity.status(HttpStatus.OK).body("Shop has been deleted");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Shop was not deleted");
         }
     }

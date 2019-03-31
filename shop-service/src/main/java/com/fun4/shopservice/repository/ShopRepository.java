@@ -15,28 +15,28 @@ public class ShopRepository {
             Query<Shop> query = session.createQuery("from Shop s where personal = false", Shop.class);
 
             // Pagination if requested
-            if (startIndex != null && pageSize != null){
+            if (startIndex != null && pageSize != null) {
                 query.setFirstResult(startIndex * pageSize);
                 query.setMaxResults(pageSize);
             }
 
             return query.getResultList();
-        } catch (Exception e){
+        } catch (Exception e) {
             return null;
         }
     }
 
-    public Shop getShopById(int shopId){
-        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()){
+    public Shop getShopById(int shopId) {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             Query<Shop> query = session.createQuery("from Shop where id = :id", Shop.class);
             query.setParameter("id", shopId);
             return query.uniqueResult();
         }
     }
 
-    public int getTotalCount(){
+    public int getTotalCount() {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
-            return Math.toIntExact((Long)session.createCriteria(Shop.class).setProjection(Projections.rowCount()).uniqueResult());
+            return Math.toIntExact((Long) session.createCriteria(Shop.class).setProjection(Projections.rowCount()).uniqueResult());
         }
     }
 
@@ -45,6 +45,20 @@ public class ShopRepository {
             Query<Shop> query = session.createQuery("from Shop s where userId = :userId AND personal = true", Shop.class);
             query.setParameter("userId", userId);
             return query.uniqueResult();
+        }
+    }
+
+    public List<Shop> getShopsForUser(int userId, Integer startIndex, Integer pageSize) {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            Query<Shop> query = session.createQuery(" from Shop where userId = :userId", Shop.class);
+            query.setParameter("userId", userId);
+
+            if (startIndex != null && pageSize != null) {
+                query.setFirstResult(startIndex * pageSize);
+                query.setMaxResults(pageSize);
+            }
+
+            return query.getResultList();
         }
     }
 
@@ -58,7 +72,7 @@ public class ShopRepository {
         return this.getShopById(shop.getId());
     }
 
-    public void deleteShop(int shopId){
+    public void deleteShop(int shopId) {
         this.deleteData(this.getShopById(shopId));
     }
 

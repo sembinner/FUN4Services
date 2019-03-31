@@ -49,9 +49,9 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductById(productId));
     }
 
-    // Get product per user
+    // Get products per user
     @GetMapping("/users/{userId}")
-    public ResponseEntity getProductForUser(
+    public ResponseEntity getProductsForUser(
             @PathVariable(value = "userId") int userId,
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
             @RequestParam(value = "pageSize", required = false) Integer pageSize
