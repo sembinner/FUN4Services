@@ -17,11 +17,11 @@
         <!-- Assume test is the database name -->
 
         <property name = "hibernate.connection.url">
-            jdbc:mysql://localhost:3306/fun_shops?createDatabaseIfNotExist=true
+            jdbc:mysql://db:3306/fun_shops?createDatabaseIfNotExist=true
         </property>
 
         <property name = "hibernate.connection.username">
-            fun
+            root
         </property>
 
         <property name = "hibernate.connection.password">

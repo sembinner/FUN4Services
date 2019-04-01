@@ -8,7 +8,7 @@ import com.mashape.unirest.http.Unirest;
 
 public class UserService implements IUserService {
 
-    String url = "http://localhost:9001/users";
+    String url = "http://user-service:9001/users";
 
     public UserCredentials getUserCredentialsByUsername(String username) throws Exception {
        HttpResponse jsonResponse =  Unirest.get(url+"/{username}")

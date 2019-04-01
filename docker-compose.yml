@@ -14,3 +14,18 @@ services:
         build: ./user-service
         ports:
           - 9001:9001
+
+    product-service:
+      build: ./product-service
+      ports:
+        - 9002:9002
+
+    shop-service:
+      build: ./shop-service
+      ports:
+        - 9003:9003
+
+    auth-service:
+      build: ./auth-service
+      ports:
+        - 9004:9004
