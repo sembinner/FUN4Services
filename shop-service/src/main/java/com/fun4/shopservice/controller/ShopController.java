@@ -50,6 +50,11 @@ public class ShopController {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getTotalCount());
     }
 
+    @GetMapping("/personals/totalCount")
+    public ResponseEntity getTotalPersonalsCount() {
+        return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getPersonalsTotalCount());
+    }
+
     @GetMapping("/personalPage/{userId}")
     public ResponseEntity getPersonalPageId(@PathVariable(value = "userId") int userId) {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getPersonalPage(userId));

@@ -61,6 +61,14 @@ public class ShopRepository {
         }
     }
 
+    public int getPersonalsTotalCount() {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            return Math.toIntExact((Long) session.createCriteria(Shop.class)
+                    .add(Restrictions.eq("personal", true))
+                    .setProjection(Projections.rowCount()).uniqueResult());
+        }
+    }
+
     public Shop getPersonalPage(int userId) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             Query<Shop> query = session.createQuery("from Shop s where userId = :userId AND personal = true", Shop.class);
