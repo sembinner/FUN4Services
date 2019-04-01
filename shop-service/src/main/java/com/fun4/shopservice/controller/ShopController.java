@@ -30,6 +30,15 @@ public class ShopController {
         return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getShops(startIndex, pageSize));
     }
 
+    //Get personal pages
+    @GetMapping("/personals")
+    public ResponseEntity getAllPersonalPages(
+            @RequestParam(value = "startIndex", required = false) Integer startIndex,
+            @RequestParam(value = "pageSize", required = false) Integer pageSize
+    ) {
+        return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.getPersonalPages(startIndex, pageSize));
+    }
+
     // Get shop - by id
     @GetMapping("/{shopId}")
     public ResponseEntity getShopById(@PathVariable(value = "shopId") int shopId) {

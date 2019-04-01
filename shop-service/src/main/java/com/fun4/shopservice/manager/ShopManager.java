@@ -31,4 +31,8 @@ public class ShopManager {
     public List<Shop> getShopsForUser(int userId, Integer startIndex, Integer pageSize) {
         return this.shopRepository.getShopsForUser(userId, startIndex, pageSize);
     }
+
+    public List<Shop> getPersonalPages(Integer startIndex, Integer pageSize) {
+        return this.shopRepository.getPersonalPages(startIndex, pageSize);
+    }
 }
