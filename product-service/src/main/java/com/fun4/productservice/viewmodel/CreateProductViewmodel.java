@@ -11,6 +11,8 @@ public class CreateProductViewmodel {
 
     private int userId;
 
+    private int shopId;
+
     public String getName() {
         return name;
     }
@@ -41,5 +43,13 @@ public class CreateProductViewmodel {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public int getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(int shopId) {
+        this.shopId = shopId;
     }
 }
