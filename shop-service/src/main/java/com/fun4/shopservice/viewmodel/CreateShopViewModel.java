@@ -7,6 +7,8 @@ public class CreateShopViewModel {
 
     private int userId;
 
+    private boolean personal;
+
     public String getName() {
         return name;
     }
@@ -29,5 +31,13 @@ public class CreateShopViewModel {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public boolean isPersonal() {
+        return personal;
+    }
+
+    public void setPersonal(boolean personal) {
+        this.personal = personal;
     }
 }

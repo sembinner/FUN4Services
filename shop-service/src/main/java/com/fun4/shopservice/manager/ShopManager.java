@@ -25,4 +25,16 @@ public class ShopManager {
     public int getTotalCount(){
         return this.shopRepository.getTotalCount();
     }
+
+    public int getPersonalsTotalCount() {return this.shopRepository.getPersonalsTotalCount();}
+
+    public Shop getPersonalPage(int userId) { return this.shopRepository.getPersonalPage(userId); }
+
+    public List<Shop> getShopsForUser(int userId, Integer startIndex, Integer pageSize) {
+        return this.shopRepository.getShopsForUser(userId, startIndex, pageSize);
+    }
+
+    public List<Shop> getPersonalPages(Integer startIndex, Integer pageSize) {
+        return this.shopRepository.getPersonalPages(startIndex, pageSize);
+    }
 }
