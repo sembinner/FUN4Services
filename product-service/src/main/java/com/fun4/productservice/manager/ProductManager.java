@@ -18,6 +18,10 @@ public class ProductManager {
         return this.productRepository.getProductById(productId);
     }
 
+    public List<Product> getMultipleProductsById(String[] ids) {
+        return this.productRepository.getMultipleProductsById(ids);
+    }
+
     public Product addProduct(Product product) throws Exception{
         return this.productRepository.addProduct(product);
     }

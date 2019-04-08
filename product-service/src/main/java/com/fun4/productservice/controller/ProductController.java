@@ -4,17 +4,22 @@ import com.fun4.productservice.manager.ProductManager;
 import com.fun4.productservice.model.Product;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
 import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
+import com.google.gson.Gson;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.lang.reflect.Array;
+import java.util.List;
+
 @RestController
 @CrossOrigin
-@Api(value="/products",description="Product Service",produces ="application/json")
+@Api(value = "/products", description = "Product Service", produces = "application/json")
 @RequestMapping("/products")
 public class ProductController {
     ProductManager productManager;
+    Gson gson = new Gson();
 
     public ProductController() {
         this.productManager = new ProductManager();
@@ -33,19 +38,29 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order, shopId, categoryId));
     }
 
+    // Get multiple products by id (shoppingCart)
+    @GetMapping("/shoppingCart")
+    public ResponseEntity getProductsByIds(
+            @RequestParam(value = "ids") String ids
+    ) {
+        String[] test = gson.fromJson(ids, String[].class);
+        System.out.println(test);
+        return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getMultipleProductsById(test));
+    }
+
     @GetMapping("/totalCount")
-    public ResponseEntity getTotalCount(){
+    public ResponseEntity getTotalCount() {
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getTotalCount());
     }
 
     @GetMapping("/totalCountForShop/{shopId}")
-    public ResponseEntity getTotalCountForShop(@PathVariable(value = "shopId") int shopId){
+    public ResponseEntity getTotalCountForShop(@PathVariable(value = "shopId") int shopId) {
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getTotalCountForShop(shopId));
     }
 
     // Get single product - by id
     @GetMapping("/{productId}")
-    public ResponseEntity getProductById(@PathVariable(value = "productId") int productId){
+    public ResponseEntity getProductById(@PathVariable(value = "productId") int productId) {
         return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductById(productId));
     }
 
@@ -55,16 +70,16 @@ public class ProductController {
             @PathVariable(value = "userId") int userId,
             @RequestParam(value = "startIndex", required = false) Integer startIndex,
             @RequestParam(value = "pageSize", required = false) Integer pageSize
-            ){
+    ) {
         return ResponseEntity.status(HttpStatus.OK).body(productManager.getProductsForUser(userId, startIndex, pageSize));
     }
 
     // Create new product
     @PostMapping()
-    public ResponseEntity addProduct(CreateProductViewmodel viewModel){
+    public ResponseEntity addProduct(CreateProductViewmodel viewModel) {
         System.out.println(viewModel);
         System.out.println("addProduct called with:" + viewModel.getName() + "," + viewModel.getDescription() + "," + viewModel.getPrice() + "," + viewModel.getShopId() + "," + viewModel.getUserId());
-        Product product  = new Product(viewModel.getName(), viewModel.getDescription(), viewModel.getPrice(), viewModel.getUserId(), viewModel.getShopId());
+        Product product = new Product(viewModel.getName(), viewModel.getDescription(), viewModel.getPrice(), viewModel.getUserId(), viewModel.getShopId());
         System.out.println(product.getDescription());
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.productManager.addProduct(product));
@@ -75,25 +90,25 @@ public class ProductController {
 
     // Update product
     @PutMapping("/{id}")
-    public ResponseEntity updateProduct(UpdateProductViewmodel viewmodel){
+    public ResponseEntity updateProduct(UpdateProductViewmodel viewmodel) {
         Product product = this.productManager.getProductById(viewmodel.getId());
 
         product.updateProduct(viewmodel.getName(), viewmodel.getDescription(), viewmodel.getPrice());
 
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.productManager.updateProduct(product));
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
 
     // Delete a product - by id
     @DeleteMapping("/{productId}")
-    public ResponseEntity deleteProduct(@PathVariable(value = "productId") int productId){
+    public ResponseEntity deleteProduct(@PathVariable(value = "productId") int productId) {
         try {
             this.productManager.deleteProduct(productId);
             return ResponseEntity.status(HttpStatus.OK).body("");
-        } catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

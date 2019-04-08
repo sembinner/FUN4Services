@@ -2,15 +2,11 @@ package com.fun4.productservice.repository;
 
 import com.fun4.productservice.manager.HibernateManager;
 import com.fun4.productservice.model.Product;
-import com.fun4.productservice.model.SortingOrder;
-import com.fun4.productservice.model.SortingType;
 import org.hibernate.Session;
-import org.hibernate.criterion.Projection;
 import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProductRepository {
@@ -35,20 +31,20 @@ public class ProductRepository {
         return this.getProductById(product.getId());
     }
 
-    public int getTotalCount(){
+    public int getTotalCount() {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
-            return Math.toIntExact((Long)session.createCriteria(Product.class).setProjection(Projections.rowCount()).uniqueResult());
+            return Math.toIntExact((Long) session.createCriteria(Product.class).setProjection(Projections.rowCount()).uniqueResult());
         }
     }
 
-    public int getTotalCountForShop(int shopId){
+    public int getTotalCountForShop(int shopId) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
 //            return Math.toIntExact((Long)session.createCriteria(Product.class).setProjection(Projections.rowCount()).uniqueResult());
             Query query = session.createQuery("select count(p.id) from Product p" +
                     " where p.shopId = :shopId");
             query.setParameter("shopId", shopId);
 
-            return Math.toIntExact((Long)query.uniqueResult());
+            return Math.toIntExact((Long) query.uniqueResult());
         }
     }
 
@@ -100,6 +96,35 @@ public class ProductRepository {
                 query.setFirstResult(startIndex * pageSize);
                 query.setMaxResults(pageSize);
             }
+
+            return query.getResultList();
+        }
+    }
+
+    public List<Product> getMultipleProductsById(String[] ids) {
+        try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
+            String queryString = "from Product";
+
+            int i = 0;
+            for (String id: ids) {
+                if (i == 0) {
+                    queryString += " where id = :id" + i;
+                } else {
+                    queryString += " or id = :id" + i;
+                }
+                i++;
+            }
+
+           Query<Product> query = session.createQuery(queryString);
+
+            int j = 0;
+            for (String id: ids) {
+                System.out.println(j + "," + id);
+                query.setParameter("id" + j, Integer.parseInt(id));
+                j++;
+            }
+
+            System.out.println(query);
 
             return query.getResultList();
         }
