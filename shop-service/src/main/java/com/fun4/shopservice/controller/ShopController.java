@@ -73,7 +73,6 @@ public class ShopController {
     // Create new Shop
     @PostMapping()
     public ResponseEntity addShop(CreateShopViewModel viewModel) {
-        System.out.println(viewModel + viewModel.getName() + viewModel.getDescription() + viewModel.getUserId() + viewModel.isPersonal());
         Shop shop = new Shop(viewModel.getName(), viewModel.getDescription(), viewModel.getUserId(), viewModel.isPersonal());
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.shopManager.addShop(shop));
@@ -85,7 +84,6 @@ public class ShopController {
     // Update shop
     @PutMapping("/{id}")
     public ResponseEntity updateShop(UpdateShopViewModel viewmodel) {
-        System.out.println(viewmodel);
         Shop shop = this.shopManager.getShopById(viewmodel.getId());
 
         shop.updateShop(viewmodel.getName(), viewmodel.getDescription());

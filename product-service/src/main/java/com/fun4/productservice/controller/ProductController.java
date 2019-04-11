@@ -62,10 +62,7 @@ public class ProductController {
     // Create new product
     @PostMapping()
     public ResponseEntity addProduct(CreateProductViewmodel viewModel){
-        System.out.println(viewModel);
-        System.out.println("addProduct called with:" + viewModel.getName() + "," + viewModel.getDescription() + "," + viewModel.getPrice() + "," + viewModel.getShopId() + "," + viewModel.getUserId());
         Product product  = new Product(viewModel.getName(), viewModel.getDescription(), viewModel.getPrice(), viewModel.getUserId(), viewModel.getShopId());
-        System.out.println(product.getDescription());
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.productManager.addProduct(product));
         } catch (Exception e) {
@@ -92,7 +89,7 @@ public class ProductController {
     public ResponseEntity deleteProduct(@PathVariable(value = "productId") int productId){
         try {
             this.productManager.deleteProduct(productId);
-            return ResponseEntity.status(HttpStatus.OK).body("");
+            return ResponseEntity.status(HttpStatus.OK).body("Product has been deleted");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
