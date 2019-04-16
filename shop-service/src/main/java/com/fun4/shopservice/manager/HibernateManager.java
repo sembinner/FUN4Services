@@ -7,6 +7,7 @@ public class HibernateManager {
     private SessionFactory sessionFactory = buildSessionFactory();
 
     private static HibernateManager instance;
+    private static ConfigurationManager configurationManager = new ConfigurationManager();
 
     public static HibernateManager getInstance(){
         if(instance == null){
@@ -17,7 +18,8 @@ public class HibernateManager {
 
     private SessionFactory buildSessionFactory() {
         try {
-            return new Configuration().configure().buildSessionFactory();
+//            return new Configuration().configure().buildSessionFactory();
+            return configurationManager.getConfiguration().buildSessionFactory();
         }
         catch (Exception ex) {
             throw new ExceptionInInitializerError(ex);

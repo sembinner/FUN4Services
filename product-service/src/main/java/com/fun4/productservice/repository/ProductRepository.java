@@ -57,7 +57,7 @@ public class ProductRepository {
             String queryString = "from Product p";
 
             //Create shopId field
-            if (!shopId.equals("null")) {
+            if (shopId !=  null) {
                 queryString += " where p.shopId=:shopId";
             }
 
@@ -85,7 +85,7 @@ public class ProductRepository {
             Query<Product> query = session.createQuery(queryString);
 
             //Setting shopId field
-            if (!shopId.equals("null")) {
+            if (shopId != null) {
                 query.setParameter("shopId", Integer.parseInt(shopId));
             }
 

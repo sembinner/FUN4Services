@@ -1,5 +1,5 @@
 base:
-  hibernate.dialect: org.hibernate.dialect.MySQL55Dialect
+  hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
   hibernate.connection.driver_class: com.mysql.jdbc.Driver
   hibernate.hbm2ddl.auto: update
   hibernate.connection.username: root
@@ -9,15 +9,12 @@ base:
 service.user:
   authServiceUrl: http://localhost:9004
   hibernate.connection.url: jdbc:mysql://db:3306/fun_users?createDatabaseIfNotExist=true
-  mappingClass: com.fun4.productservice.model.User
 
 service.product:
   hibernate.connection.url: jdbc:mysql://db:3306/fun_products?createDatabaseIfNotExist=true
-  mappingClass: com.fun4.productservice.model.Product
 
 service.shop:
-  hibernate.connection.url: jdbc:mysql://db:3306/fun_shops?createDatabaseIfNotExist=true
-  mappingClass: com.fun4.productservice.model.Shop
+  hibernate.connection.url: jdbc:mysql://localhost:3306/fun_shops?createDatabaseIfNotExist=true
 
 service.auth:
   test: test

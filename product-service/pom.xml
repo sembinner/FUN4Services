@@ -60,7 +60,11 @@
             <artifactId>jbcrypt</artifactId>
             <version>0.3m</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>LATEST</version>
+        </dependency>
     </dependencies>
 
     <build>

@@ -1,7 +1,7 @@
 package service
 
 import (
-	"../../config-service/domain"
+	"../domain"
 	"io/ioutil"
 	"log"
 	"time"

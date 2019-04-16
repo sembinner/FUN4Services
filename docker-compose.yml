@@ -1,16 +1,16 @@
 version: '3'
 
 services:
-
-  config-service:
-    build: ./config-service
-    image: golang:1.6.1-alpine
-    volumes:
-      - .:/go/src/app
-    working_dir: /go/src/app
-#    command: go run main.go
-    ports:
-      - 9005:9005
+#
+#  config-service:
+#    build: ./config-service
+#    image: golang:1.6.1-alpine
+#    volumes:
+#      - .:/go/src/app
+#    working_dir: /go/src/app
+##    command: go run main.go
+#    ports:
+#      - 9005:9005
 
   db:
     image: mariadb
@@ -24,26 +24,26 @@ services:
     build: ./user-service
     ports:
       - 9001:9001
-    depends_on:
-      - config-service
+#    depends_on:
+#      - config-service
 
   product-service:
     build: ./product-service
     ports:
       - 9002:9002
-    depends_on:
-      - config-service
+#    depends_on:
+#      - config-service
 
   shop-service:
     build: ./shop-service
     ports:
       - 9003:9003
-    depends_on:
-      - config-service
+#    depends_on:
+#      - config-service
 
   auth-service:
     build: ./auth-service
     ports:
       - 9004:9004
-    depends_on:
-      - config-service
+#    depends_on:
+#      - config-service

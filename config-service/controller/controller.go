@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"../../config-service/domain"
+	"../domain"
 	"encoding/json"
 	"fmt"
 	"github.com/gorilla/mux"

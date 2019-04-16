@@ -1,4 +1,4 @@
-package com.fun4.productservice.security;
+package com.fun4.shopservice.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;

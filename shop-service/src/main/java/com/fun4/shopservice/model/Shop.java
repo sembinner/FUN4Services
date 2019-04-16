@@ -1,8 +1,6 @@
 package com.fun4.shopservice.model;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.math.BigDecimal;
 
 @Entity
 @Table(name = "shops")

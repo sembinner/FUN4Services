@@ -18,7 +18,7 @@ func main() {
 	}
 
 	// Checks every 60 seconds for changes in the config.yml
-	go configService.Watch(time.Second * 60)
+	go configService.Watch(time.Second * 3)
 
 	c := controller.Controller{
 		Config: &config,
