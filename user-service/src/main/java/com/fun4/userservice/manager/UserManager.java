@@ -23,6 +23,8 @@ public class UserManager {
         return this.userRepository.getUserByUsername(username);
     }
 
+    public User getUserById(int id) {return  this.userRepository.getUserById(id);}
+
     public User addUser(User user, String confirmPassword) throws Exception{
         //Set username and email to lowercase
         user.setUsername(user.getUsername().toLowerCase());

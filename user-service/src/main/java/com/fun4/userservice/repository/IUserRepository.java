@@ -6,4 +6,5 @@ public interface IUserRepository {
     public User getUserByUsername(String username);
     public User addUser(User user);
 
+    User getUserById(int id);
 }

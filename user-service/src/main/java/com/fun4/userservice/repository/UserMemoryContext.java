@@ -25,4 +25,9 @@ public class UserMemoryContext implements IUserRepository {
         users.add(user);
         return user;
     }
+
+    @Override
+    public User getUserById(int id) {
+        return null;
+    }
 }

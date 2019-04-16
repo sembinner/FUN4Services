@@ -29,6 +29,22 @@ public class UserRepository implements IUserRepository {
         return this.getUserByUsername(user.getUsername());
     }
 
+    @Override
+    public User getUserById(int id) {
+        Session session = HibernateManager.getInstance().getSessionFactory().openSession();
+
+        Query<User> query = session.createQuery("from User where id = :id", User.class);
+        query.setParameter("id", id);
+
+        try{
+            return query.uniqueResult();
+        }catch (NoResultException e){
+            return null;
+        }finally {
+            session.close();
+        }
+    }
+
     private void storeData(Object objectToSave) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             session.beginTransaction();

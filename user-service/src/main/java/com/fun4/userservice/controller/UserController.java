@@ -31,6 +31,10 @@ public class UserController {
     public ResponseEntity getUserByUsername(@PathVariable(value = "username") String username){
         return ResponseEntity.status(HttpStatus.OK).body(userManager.getUserByUsername(username));
     }
+    @GetMapping("/getUserById/{id}")
+    public ResponseEntity getUserById(@PathVariable(value = "id") int id){
+        return ResponseEntity.status(HttpStatus.OK).body(userManager.getUserById(id));
+    }
 
     @PostMapping("/add")
     public ResponseEntity addUser(@RequestBody CreateUserViewmodel viewmodel){
