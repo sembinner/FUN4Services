@@ -30,6 +30,12 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public User editUser(User user) {
+       this.updateData(user);
+       return user;
+    }
+
+    @Override
     public User getUserById(int id) {
         Session session = HibernateManager.getInstance().getSessionFactory().openSession();
 

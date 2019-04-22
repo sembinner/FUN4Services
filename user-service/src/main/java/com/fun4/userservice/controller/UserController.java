@@ -5,6 +5,7 @@ import com.fun4.userservice.model.User;
 import com.fun4.userservice.repository.UserRepository;
 import com.fun4.userservice.security.JwtTokenProvider;
 import com.fun4.userservice.viewmodel.CreateUserViewmodel;
+import com.fun4.userservice.viewmodel.EditUserViewModel;
 import io.swagger.annotations.Api;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,6 +43,16 @@ public class UserController {
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.userManager.addUser(user, viewmodel.getConfirmPassword()));
         } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/edit")
+    public ResponseEntity editUser(@RequestBody EditUserViewModel viewmodel){
+        User user = new User(viewmodel.getId(), viewmodel.getEmail(), viewmodel.getUsername(), viewmodel.getFirstName(), viewmodel.getLastName(), viewmodel.getPassword());
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(this.userManager.editUser(user, viewmodel.getConfirmPassword()));
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }

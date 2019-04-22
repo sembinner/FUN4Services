@@ -27,6 +27,11 @@ public class UserMemoryContext implements IUserRepository {
     }
 
     @Override
+    public User editUser(User user) {
+        return null;
+    }
+
+    @Override
     public User getUserById(int id) {
         return null;
     }
