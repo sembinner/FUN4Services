@@ -23,6 +23,8 @@ public class UserManager {
         return this.userRepository.getUserByUsername(username);
     }
 
+    public User getUserById(Integer userId) { return this.userRepository.getUserById(userId);}
+
     public User addUser(User user, String confirmPassword) throws Exception{
         //Set username and email to lowercase
         user.setUsername(user.getUsername().toLowerCase());
@@ -51,5 +53,9 @@ public class UserManager {
     private static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
         return matcher.find();
+    }
+
+    public void deleteUser(User user) {
+        this.userRepository.deleteUser(user);
     }
 }

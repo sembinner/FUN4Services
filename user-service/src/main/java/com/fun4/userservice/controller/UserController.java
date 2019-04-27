@@ -61,6 +61,19 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(jwtTokenProvider.getBody(token));
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable(value = "id") Integer userId) {
+        System.out.println(this.userManager.getUserById(userId));
+        try {
+            this.userManager.deleteUser(this.userManager.getUserById(userId));
+            return ResponseEntity.status(HttpStatus.OK).body("User deleted");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Could not delete user");
+    }
+
 
 
 }
