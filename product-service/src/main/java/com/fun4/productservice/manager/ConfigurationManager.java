@@ -46,6 +46,7 @@ public class ConfigurationManager {
             for (String s : arr) {
                 String[] parts = s.split(":", 2);
                 config.setProperty(parts[0], parts[1]);
+                System.out.println("setting: " + parts[0] + " to: " + parts[1]);
                 i++;
             }
 

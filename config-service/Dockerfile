@@ -14,3 +14,18 @@
 #
 #CMD ["app"]
 #ENTRYPOINT ["app", "-f=7", "-s=9"]
+
+#FROM golang:1.8
+#
+#WORKDIR /go/src/app
+#COPY . .
+#
+#RUN go get -d -v ./...
+#RUN go install -v ./...
+#
+#CMD ["app"]
+
+FROM golang:1.8
+ADD / /
+
+CMD ["go run main.go"]

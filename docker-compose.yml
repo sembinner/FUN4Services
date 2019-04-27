@@ -1,24 +1,28 @@
 version: '3'
 
 services:
-#
-#  config-service:
-#    build: ./config-service
-#    image: golang:1.6.1-alpine
-#    volumes:
-#      - .:/go/src/app
-#    working_dir: /go/src/app
-##    command: go run main.go
-#    ports:
-#      - 9005:9005
+
+  # config-service:
+  #  build: ./config-service
+  #  image: golang:1.6.1-alpine
+  #  volumes:
+  #    - .:/go/src/app
+  #  working_dir: /go/src/app
+  #  environment:
+  #   - GOPATH=/golib/:go/
+  #  command: go run main.go
+  #  ports:
+  #    - 9005:9005
 
   db:
-    image: mariadb
+    image: mysql:5.7
     restart: always
     environment:
       MYSQL_ROOT_PASSWORD: FunProjects0!
     ports:
-      - 3306:3306
+      - 0.0.0.0:3306:3306
+    expose:
+    - '3306'
 
   user-service:
     build: ./user-service

@@ -27,7 +27,7 @@ public class ProductController {
             @RequestParam(value = "pageSize", required = false) Integer pageSize,
             @RequestParam(value = "type", required = false) String type,
             @RequestParam(value = "order", required = false) String order,
-            @RequestParam(value = "shopId", required = false) String shopId,
+            @RequestParam(value = "shopId", required = false) Integer shopId,
             @RequestParam(value = "categoryId", required = false) String categoryId
     ) {
         return ResponseEntity.status(HttpStatus.OK).body(this.productManager.getProducts(startIndex, pageSize, type, order, shopId, categoryId));

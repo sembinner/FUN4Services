@@ -1,6 +1,6 @@
 base:
-  hibernate.dialect: org.hibernate.dialect.MySQL5Dialect
   hibernate.connection.driver_class: com.mysql.jdbc.Driver
+  hibernate.dialect: org.hibernate.dialect.MySQLDialect
   hibernate.hbm2ddl.auto: update
   hibernate.connection.username: root
   hibernate.connection.password: FunProjects0!
@@ -14,7 +14,7 @@ service.product:
   hibernate.connection.url: jdbc:mysql://db:3306/fun_products?createDatabaseIfNotExist=true
 
 service.shop:
-  hibernate.connection.url: jdbc:mysql://localhost:3306/fun_shops?createDatabaseIfNotExist=true
+  hibernate.connection.url: jdbc:mysql://db:3306/fun_shops?createDatabaseIfNotExist=true
 
 service.auth:
   test: test

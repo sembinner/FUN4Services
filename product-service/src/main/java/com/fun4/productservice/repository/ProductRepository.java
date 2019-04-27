@@ -10,11 +10,11 @@ import org.hibernate.criterion.Projections;
 import org.hibernate.query.Query;
 
 import javax.persistence.NoResultException;
+import java.awt.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class ProductRepository {
-
     public Product getProductById(int productId) {
         Session session = HibernateManager.getInstance().getSessionFactory().openSession();
 
@@ -52,7 +52,7 @@ public class ProductRepository {
         }
     }
 
-    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order, String shopId, String categoryId) {
+    public List<Product> getAllProducts(Integer startIndex, Integer pageSize, String type, String order, Integer shopId, String categoryId) {
         try (Session session = HibernateManager.getInstance().getSessionFactory().openSession()) {
             String queryString = "from Product p";
 
@@ -86,7 +86,7 @@ public class ProductRepository {
 
             //Setting shopId field
             if (shopId != null) {
-                query.setParameter("shopId", Integer.parseInt(shopId));
+                query.setParameter("shopId", shopId);
             }
 
             // No categories in the database yet
