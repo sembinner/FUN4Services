@@ -48,6 +48,17 @@ public class UserManager {
         return this.userRepository.editUser(user);
     }
 
+    public User changePassword(User user, String oldPassword,String newPassword, String confirmPassword) throws Exception{
+        if(!BCrypt.checkpw(oldPassword, user.getPassword())){
+            throw new Exception("The old password is incorrect!");
+        }
+        if(!newPassword.equals(confirmPassword)){
+            throw new Exception("The passwords do not match!");
+        }
+        user.setPassword(BCrypt.hashpw(newPassword, BCrypt.gensalt()));
+        return this.userRepository.editUser(user);
+    }
+
     private static boolean validate(String emailStr) {
         Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(emailStr);
         return matcher.find();

@@ -4,6 +4,7 @@ import com.fun4.userservice.manager.UserManager;
 import com.fun4.userservice.model.User;
 import com.fun4.userservice.repository.UserRepository;
 import com.fun4.userservice.security.JwtTokenProvider;
+import com.fun4.userservice.viewmodel.ChangePasswordViewModel;
 import com.fun4.userservice.viewmodel.CreateUserViewmodel;
 import com.fun4.userservice.viewmodel.EditUserViewModel;
 import io.swagger.annotations.Api;
@@ -52,6 +53,16 @@ public class UserController {
         User user = new User(viewmodel.getId(), viewmodel.getEmail(), viewmodel.getUsername(), viewmodel.getFirstName(), viewmodel.getLastName(), viewmodel.getPassword());
         try{
             return ResponseEntity.status(HttpStatus.OK).body(this.userManager.editUser(user, viewmodel.getConfirmPassword()));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity changePassword(@RequestBody ChangePasswordViewModel viewModel){
+        User user = userManager.getUserById(viewModel.getUserId());
+        try{
+            return ResponseEntity.status(HttpStatus.OK).body(this.userManager.changePassword(user, viewModel.getOldPassword(),  viewModel.getNewPassowrd(), viewModel.getConfirmNewPassword()));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
