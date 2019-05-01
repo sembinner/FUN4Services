@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -62,7 +61,7 @@ public class UserController {
     public ResponseEntity changePassword(@RequestBody ChangePasswordViewModel viewModel){
         User user = userManager.getUserById(viewModel.getUserId());
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(this.userManager.changePassword(user, viewModel.getOldPassword(),  viewModel.getNewPassowrd(), viewModel.getConfirmNewPassword()));
+            return ResponseEntity.status(HttpStatus.OK).body(this.userManager.changePassword(user, viewModel.getOldPassword(),  viewModel.getNewPassword(), viewModel.getConfirmPassword()));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

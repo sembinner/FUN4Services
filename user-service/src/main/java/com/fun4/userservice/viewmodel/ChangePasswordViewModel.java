@@ -3,8 +3,8 @@ package com.fun4.userservice.viewmodel;
 public class ChangePasswordViewModel {
     private int userId;
     private String oldPassword;
-    private String newPassowrd;
-    private String confirmNewPassword;
+    private String newPassword;
+    private String confirmPassword;
 
     public int getUserId() {
         return userId;
@@ -22,19 +22,19 @@ public class ChangePasswordViewModel {
         this.oldPassword = oldPassword;
     }
 
-    public String getNewPassowrd() {
-        return newPassowrd;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setNewPassowrd(String newPassowrd) {
-        this.newPassowrd = newPassowrd;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
-    public String getConfirmNewPassword() {
-        return confirmNewPassword;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void setConfirmNewPassword(String confirmNewPassword) {
-        this.confirmNewPassword = confirmNewPassword;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
     }
 }
