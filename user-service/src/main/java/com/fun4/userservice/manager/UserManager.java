@@ -25,6 +25,8 @@ public class UserManager {
 
     public User getUserById(int id) {return  this.userRepository.getUserById(id);}
 
+    public User getUserById(Integer userId) { return this.userRepository.getUserById(userId);}
+
     public User addUser(User user, String confirmPassword) throws Exception{
         //Set username and email to lowercase
         user.setUsername(user.getUsername().toLowerCase());
@@ -79,5 +81,9 @@ public class UserManager {
         if(!validate(user.getEmail())){
             throw new Exception(MessageFormat.format("\"{0}\" is not a correct email format!", user.getEmail()));
         }
+    }
+
+    public void deleteUser(User user) {
+        this.userRepository.deleteUser(user);
     }
 }

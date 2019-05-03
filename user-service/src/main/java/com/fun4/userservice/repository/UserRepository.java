@@ -24,6 +24,25 @@ public class UserRepository implements IUserRepository {
         }
     }
 
+    public User getUserById(Integer userId) {
+        Session session = HibernateManager.getInstance().getSessionFactory().openSession();
+
+        Query<User> query = session.createQuery("from User where id = :id", User.class);
+        query.setParameter("id", userId);
+
+        try {
+            return query.uniqueResult();
+        } catch (NoResultException e) {
+            return null;
+        } finally {
+            session.close();
+        }
+    }
+
+    public void deleteUser(User user) {
+        this.deleteData(user);
+    }
+
     public User addUser(User user){
         this.storeData(user);
         return this.getUserByUsername(user.getUsername());
