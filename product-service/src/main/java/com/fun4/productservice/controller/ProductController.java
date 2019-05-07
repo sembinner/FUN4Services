@@ -5,6 +5,7 @@ import com.fun4.productservice.model.Product;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
 import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
 import io.swagger.annotations.Api;
+import org.jboss.logging.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -75,7 +76,7 @@ public class ProductController {
 
     // Update product
     @PutMapping("/{id}")
-    public ResponseEntity updateProduct(UpdateProductViewmodel viewmodel){
+    public ResponseEntity updateProduct(@RequestBody UpdateProductViewmodel viewmodel){
         Product product = this.productManager.getProductById(viewmodel.getId());
 
         product.updateProduct(viewmodel.getName(), viewmodel.getDescription(), viewmodel.getPrice());
