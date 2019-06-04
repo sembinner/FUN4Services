@@ -19,10 +19,30 @@ public class UserMemoryContext implements IUserRepository {
     }
 
     @Override
+    public User getUserById(Integer userId) {
+        return users.stream().filter(x -> x.getId() == userId).findFirst().orElse(null);
+    }
+
+    @Override
     public User addUser(User user) {
         Random random = new Random();
         user.setId(random.nextInt(1000));
         users.add(user);
         return user;
+    }
+
+    @Override
+    public User editUser(User user) {
+        return null;
+    }
+
+    @Override
+    public User getUserById(int id) {
+        return null;
+    }
+
+    @Override
+    public void deleteUser(User user) {
+        users.remove(user);
     }
 }

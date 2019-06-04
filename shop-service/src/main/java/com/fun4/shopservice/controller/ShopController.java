@@ -85,6 +85,7 @@ public class ShopController {
     // Update shop
     @PutMapping("/{id}")
     public ResponseEntity updateShop(UpdateShopViewModel viewmodel) {
+        System.out.println(viewmodel);
         Shop shop = this.shopManager.getShopById(viewmodel.getId());
 
         shop.updateShop(viewmodel.getName(), viewmodel.getDescription());

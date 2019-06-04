@@ -7,8 +7,6 @@ public class UpdateShopViewModel {
 
     private String description;
 
-    private int userId;
-
     private boolean personal;
 
     public String getName() {
@@ -19,20 +17,12 @@ public class UpdateShopViewModel {
         return description;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
     }
 
     public int getId() {

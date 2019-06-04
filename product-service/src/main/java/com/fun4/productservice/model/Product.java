@@ -1,9 +1,6 @@
 package com.fun4.productservice.model;
 
-import com.sun.istack.Nullable;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.math.BigDecimal;
 
 @Entity
@@ -15,7 +12,6 @@ public class Product {
     private int id;
 
     @Column()
-    @NotBlank
     private String name;
 
     @Column()
@@ -27,14 +23,15 @@ public class Product {
     @Column(updatable = false)
     private Integer userId;
 
-    @Column()
+    @Column(updatable = false)
     private Integer shopId;
 
-    public Product(String name, String description, BigDecimal price, int userId){
+    public Product(String name, String description, BigDecimal price, int userId, int shopId){
         this.name = name;
         this.description = description;
         this.price = price;
         this.userId = userId;
+        this.shopId = shopId;
     }
 
     public Product() {
@@ -76,5 +73,21 @@ public class Product {
         if (name != null){ this.name = name;}
         if (description != null){ this.description = description;}
         if (price != null && price != BigDecimal.valueOf(0)){this.price = price;}
+    }
+
+    public Integer getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(Integer shopId) {
+        this.shopId = shopId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 }

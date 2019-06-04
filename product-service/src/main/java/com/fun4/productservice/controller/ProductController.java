@@ -5,6 +5,7 @@ import com.fun4.productservice.model.Product;
 import com.fun4.productservice.viewmodel.CreateProductViewmodel;
 import com.fun4.productservice.viewmodel.UpdateProductViewmodel;
 import io.swagger.annotations.Api;
+import org.jboss.logging.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -60,9 +61,12 @@ public class ProductController {
     }
 
     // Create new product
-    @PostMapping("/add")
-    public ResponseEntity addProduct(CreateProductViewmodel viewmodel){
-        Product product  = new Product(viewmodel.getName(), viewmodel.getDescription(), viewmodel.getPrice(), viewmodel.getUserId());
+    @PostMapping()
+    public ResponseEntity addProduct(CreateProductViewmodel viewModel){
+        System.out.println(viewModel);
+        System.out.println("addProduct called with:" + viewModel.getName() + "," + viewModel.getDescription() + "," + viewModel.getPrice() + "," + viewModel.getShopId() + "," + viewModel.getUserId());
+        Product product  = new Product(viewModel.getName(), viewModel.getDescription(), viewModel.getPrice(), viewModel.getUserId(), viewModel.getShopId());
+        System.out.println(product.getDescription());
         try {
             return ResponseEntity.status(HttpStatus.OK).body(this.productManager.addProduct(product));
         } catch (Exception e) {
@@ -72,7 +76,7 @@ public class ProductController {
 
     // Update product
     @PutMapping("/{id}")
-    public ResponseEntity updateProduct(UpdateProductViewmodel viewmodel){
+    public ResponseEntity updateProduct(@RequestBody UpdateProductViewmodel viewmodel){
         Product product = this.productManager.getProductById(viewmodel.getId());
 
         product.updateProduct(viewmodel.getName(), viewmodel.getDescription(), viewmodel.getPrice());
@@ -89,7 +93,7 @@ public class ProductController {
     public ResponseEntity deleteProduct(@PathVariable(value = "productId") int productId){
         try {
             this.productManager.deleteProduct(productId);
-            return ResponseEntity.status(HttpStatus.OK).body("Product has been deleted");
+            return ResponseEntity.status(HttpStatus.OK).body("");
         } catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }

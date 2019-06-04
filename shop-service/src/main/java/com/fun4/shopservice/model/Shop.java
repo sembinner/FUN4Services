@@ -70,4 +70,12 @@ public class Shop {
     public void setPersonal(boolean personal) {
         this.personal = personal;
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 }
